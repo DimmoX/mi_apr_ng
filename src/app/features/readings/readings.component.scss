@@ -101,30 +101,81 @@
       }
     }
     .form-card {
+      margin-bottom: 32px;
+      border-radius: 12px;
+      box-shadow: var(--surface-shadow);
+      transition: all 0.3s ease;
+      &:hover {
+        box-shadow: var(--card-shadow-hover);
+        transform: translateY(-2px);
+      }
+      
+      .mat-mdc-card-header {
+        padding-bottom: 8px;
+        .mat-mdc-card-title {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: var(--text-primary);
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          mat-icon {
+            color: var(--water-primary);
+          }
+        }
+        .mat-mdc-card-subtitle {
+          color: var(--text-secondary);
+          margin-top: 4px;
+        }
+      }
+
       .form-row {
         display: flex;
-        gap: 1rem;
-        margin-bottom: 1rem;
+        gap: 16px;
+        margin-bottom: 16px;
+        
+        @media (max-width: 768px) {
+          flex-direction: column;
+          gap: 8px;
+        }
+        
+        .half-width {
+          flex: 1;
+          min-width: 0;
+        }
+        
         .full-width {
           width: 100%;
         }
-        .half-width {
-          flex: 1;
+        
+        // Estilos específicos para los selectores de cliente y medidor
+        mat-form-field {
+          &:has(mat-select[formControlName="clientId"]) {
+            .mat-mdc-form-field-subscript-wrapper {
+              display: none;
+            }
+            mat-icon[matSuffix] {
+              color: var(--water-primary);
+            }
+          }
+          
+          &:has(mat-select[formControlName="meterId"]) {
+            mat-icon[matSuffix] {
+              color: var(--water-secondary);
+            }
+            
+            &:has(mat-select:disabled) {
+              opacity: 0.6;
+              
+              mat-icon[matSuffix] {
+                color: var(--text-disabled);
+              }
+            }
+          }
         }
       }
-      .card-actions {
-        display: flex;
-        justify-content: flex-end;
-        padding: 1rem 1.5rem;
-        border-top: 1px solid #e0e0e0;
-        margin-top: 1rem;
-        button {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          min-width: 180px;
-        }
-      }
+
+      // ...existing form styles...
     }
     .table-card {
       .table-container {

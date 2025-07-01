@@ -10,12 +10,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { DataInitService } from '../../core/services/data-init.service';
-import { WaterReading } from '../../core/models/user.model';
+import { WaterReading, User, WaterMeter } from '../../core/models/user.model';
 import { PageHeaderComponent } from '../../components/page-header/page-header.component';
 import { ActionButtonComponent } from '../../components/action-button/action-button.component';
 @Component({
@@ -33,6 +34,7 @@ import { ActionButtonComponent } from '../../components/action-button/action-but
     MatToolbarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
     MatTooltipModule,
     PageHeaderComponent,
     ActionButtonComponent
@@ -44,6 +46,9 @@ export class ReadingsComponent implements OnInit {
   currentUser = this.authService.currentUser;
   userRole = this.authService.userRole;
   readings = signal<WaterReading[]>([]);
+  clients = signal<User[]>([]);
+  meters = signal<WaterMeter[]>([]);
+  selectedClientMeters = signal<WaterMeter[]>([]);
   isLoading = signal(false);
   readingForm: FormGroup;
   get displayedColumns(): string[] {
@@ -65,19 +70,49 @@ export class ReadingsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.loadReadings();
+    this.loadClients();
+    this.loadMeters();
     this.setupFormForRole();
   }
   private createForm(): FormGroup {
-    return this.fb.group({
-      date: [new Date(), [Validators.required]],
-      currentReading: ['', [Validators.required, Validators.min(0)]]
-    });
+    const role = this.userRole();
+    if (role === 'cliente') {
+      // Para clientes, solo necesitan fecha y lectura actual
+      return this.fb.group({
+        date: [new Date(), [Validators.required]],
+        currentReading: ['', [Validators.required, Validators.min(0)]]
+      });
+    } else {
+      // Para personal, necesitan seleccionar cliente y medidor
+      return this.fb.group({
+        date: [new Date(), [Validators.required]],
+        clientId: ['', [Validators.required]],
+        meterId: ['', [Validators.required]],
+        currentReading: ['', [Validators.required, Validators.min(0)]]
+      });
+    }
   }
   private setupFormForRole(): void {
     const role = this.userRole();
     if (role === 'cliente') {
       this.readingForm.disable();
+    } else {
+      // Configurar listeners para el formulario del personal
+      this.setupClientMeterListener();
     }
+  }
+  private setupClientMeterListener(): void {
+    // Escuchar cambios en la selección de cliente para actualizar medidores
+    this.readingForm.get('clientId')?.valueChanges.subscribe(clientId => {
+      if (clientId) {
+        const clientMeters = this.dataInitService.getUserMeters(clientId);
+        this.selectedClientMeters.set(clientMeters);
+        // Limpiar selección de medidor cuando cambia el cliente
+        this.readingForm.get('meterId')?.setValue('');
+      } else {
+        this.selectedClientMeters.set([]);
+      }
+    });
   }
   private loadReadings(): void {
     this.isLoading.set(true);
@@ -94,40 +129,84 @@ export class ReadingsComponent implements OnInit {
       this.isLoading.set(false);
     }, 500);
   }
+  private loadClients(): void {
+    const role = this.userRole();
+    if (role !== 'cliente') {
+      const clientUsers = this.dataInitService.getClientUsers();
+      this.clients.set(clientUsers);
+    }
+  }
+  private loadMeters(): void {
+    const allMeters = this.dataInitService.getMeters();
+    this.meters.set(allMeters);
+  }
   onSubmit(): void {
     if (this.readingForm.invalid) {
       return;
     }
-    const user = this.currentUser();
-    if (!user) return;
+
+    const role = this.userRole();
     const formData = this.readingForm.value;
-    const userReadings = this.dataInitService.getUserReadings(user.id);
+    let targetUserId: string | number;
+    let meterId: string;
+
+    if (role === 'cliente') {
+      // Para clientes, usar sus propios datos
+      const user = this.currentUser();
+      if (!user) return;
+      targetUserId = user.id;
+      meterId = `MED-${user.id}`;
+    } else {
+      // Para personal, usar los datos seleccionados del formulario
+      if (!formData.clientId || !formData.meterId) {
+        this.snackBar.open('Debe seleccionar cliente y medidor', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
+        return;
+      }
+      targetUserId = formData.clientId;
+      meterId = formData.meterId;
+    }
+
+    // Obtener la última lectura del usuario seleccionado
+    const userReadings = this.dataInitService.getUserReadings(targetUserId);
     const lastReading = userReadings
+      .filter(reading => reading.idMedidor === meterId)
       .sort((a, b) => new Date(b.fechaLectura).getTime() - new Date(a.fechaLectura).getTime())[0];
+
     const previousReading = lastReading ? lastReading.lecturaActual : 0;
     const consumption = Math.max(0, formData.currentReading - previousReading);
+
     const newReading: WaterReading = {
       id: this.generateReadingId(),
-      idUsuario: user.id,
-      idMedidor: `MED-${user.id}`,
+      idUsuario: targetUserId,
+      idMedidor: meterId,
       fechaLectura: formData.date.toISOString().split('T')[0],
       horaLectura: new Date().toTimeString().substring(0, 5),
       lecturaAnterior: previousReading,
       lecturaActual: formData.currentReading,
       consumo: consumption,
-      observaciones: 'Lectura ingresada por usuario',
+      observaciones: role === 'cliente' ? 'Lectura ingresada por usuario' : `Lectura registrada por ${role}`,
       estado: 'completada'
     };
+
     const allReadings = this.dataInitService.getReadings();
     allReadings.push(newReading);
     localStorage.setItem('apr_readings', JSON.stringify(allReadings));
+
     this.loadReadings();
     this.snackBar.open('Lectura registrada correctamente', 'Cerrar', {
       duration: 3000,
       panelClass: ['success-snackbar']
     });
+
+    // Resetear formulario
     this.readingForm.reset();
     this.readingForm.patchValue({ date: new Date() });
+    if (role !== 'cliente') {
+      this.selectedClientMeters.set([]);
+    }
   }
   getStatusText(status: string): string {
     const statusMap: { [key: string]: string } = {
@@ -192,5 +271,11 @@ export class ReadingsComponent implements OnInit {
     const users = JSON.parse(usersData);
     const user = users.find((u: any) => u.id === userId);
     return user ? `${user.name} ${user.lastname}` : 'Usuario desconocido';
+  }
+  getClientDisplayName(client: User): string {
+    return `${client.name} ${client.lastname} (${client.email})`;
+  }
+  getMeterDisplayName(meter: WaterMeter): string {
+    return `${meter.id} - ${meter.marca} ${meter.modelo}`;
   }
 }

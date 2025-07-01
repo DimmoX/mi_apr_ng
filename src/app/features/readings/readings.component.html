@@ -15,6 +15,28 @@
       </mat-card-header>
       <mat-card-content>
         <form [formGroup]="readingForm" (ngSubmit)="onSubmit()">
+          <!-- Campos para personal (admin, funcionario, técnico) -->
+          <div *ngIf="userRole() !== 'cliente'" class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Seleccionar Cliente</mat-label>
+              <mat-select formControlName="clientId" placeholder="Elige un cliente">
+                <mat-option *ngFor="let client of clients()" [value]="client.id">
+                  {{ getClientDisplayName(client) }}
+                </mat-option>
+              </mat-select>
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Seleccionar Medidor</mat-label>
+              <mat-select formControlName="meterId" placeholder="Elige un medidor" [disabled]="!readingForm.get('clientId')?.value">
+                <mat-option *ngFor="let meter of selectedClientMeters()" [value]="meter.id">
+                  {{ getMeterDisplayName(meter) }}
+                </mat-option>
+              </mat-select>
+              <mat-icon matSuffix>device_hub</mat-icon>
+            </mat-form-field>
+          </div>
+          
           <div class="form-row">
             <mat-form-field appearance="outline" class="half-width">
               <mat-label>Fecha de Lectura</mat-label>

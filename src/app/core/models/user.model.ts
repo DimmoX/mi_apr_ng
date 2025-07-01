@@ -41,6 +41,16 @@ export interface WaterReading {
   observaciones?: string;
   estado: 'completada' | 'pendiente' | 'error';
 }
+
+export interface WaterMeter {
+  id: string;
+  idUsuario: string | number;
+  marca: string;
+  modelo: string;
+  numeroSerie: string;
+  fechaInstalacion: string;
+  estado: 'activo' | 'inactivo' | 'mantenimiento';
+}
 export interface AuthState {
   isAuthenticated: boolean;
   user: AuthUser | null;

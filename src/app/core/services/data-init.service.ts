@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
-import { User, WaterReading } from '../models/user.model';
+import { User, WaterReading, WaterMeter } from '../models/user.model';
+/**
+ * Servicio para inicializar datos de prueba del sistema APR
+ *
+ * Este servicio crea usuarios y lecturas de agua de ejemplo para demostrar
+ * la funcionalidad del sistema. Los datos se almacenan en localStorage
+ * para persistencia durante el desarrollo.
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class DataInitService {
   private readonly USERS_KEY = 'apr_users';
   private readonly READINGS_KEY = 'apr_readings';
+  private readonly METERS_KEY = 'apr_meters';
   private readonly INIT_FLAG_KEY = 'apr_data_initialized';
   constructor() {
     this.initializeDataIfNeeded();
@@ -16,6 +24,7 @@ export class DataInitService {
     if (!isInitialized) {
       this.createInitialUsers();
       this.createInitialReadings();
+      this.createInitialMeters();
       localStorage.setItem(this.INIT_FLAG_KEY, 'true');
       console.log('🚀 APR System: Initial data created successfully');
     }
@@ -174,12 +183,63 @@ export class DataInitService {
     ];
     localStorage.setItem(this.READINGS_KEY, JSON.stringify(initialReadings));
   }
+  private createInitialMeters(): void {
+    const initialMeters: WaterMeter[] = [
+      {
+        id: 'MED-001',
+        idUsuario: 'client_001',
+        marca: 'Elster',
+        modelo: 'V100',
+        numeroSerie: '123456',
+        fechaInstalacion: '2025-01-15',
+        estado: 'activo'
+      },
+      {
+        id: 'MED-001B',
+        idUsuario: 'client_001',
+        marca: 'Sensus',
+        modelo: 'iPERL',
+        numeroSerie: '123457',
+        fechaInstalacion: '2025-01-20',
+        estado: 'activo'
+      },
+      {
+        id: 'MED-002',
+        idUsuario: 'client_002',
+        marca: 'Itron',
+        modelo: 'Aquadis+',
+        numeroSerie: '654321',
+        fechaInstalacion: '2025-02-20',
+        estado: 'activo'
+      },
+      {
+        id: 'MED-003',
+        idUsuario: 'client_003',
+        marca: 'Kamstrup',
+        modelo: 'Multical21',
+        numeroSerie: '789012',
+        fechaInstalacion: '2025-03-10',
+        estado: 'activo'
+      },
+      {
+        id: 'MED-003B',
+        idUsuario: 'client_003',
+        marca: 'Elster',
+        modelo: 'V200',
+        numeroSerie: '789013',
+        fechaInstalacion: '2025-03-15',
+        estado: 'activo'
+      }
+    ];
+    localStorage.setItem(this.METERS_KEY, JSON.stringify(initialMeters));
+  }
   /**
    * Reset all data (for development/testing purposes)
    */
   resetData(): void {
     localStorage.removeItem(this.USERS_KEY);
     localStorage.removeItem(this.READINGS_KEY);
+    localStorage.removeItem(this.METERS_KEY);
     localStorage.removeItem(this.INIT_FLAG_KEY);
     localStorage.removeItem('apr_current_user');
     this.initializeDataIfNeeded();
@@ -217,6 +277,34 @@ export class DataInitService {
   getUserReadings(userId: string | number): WaterReading[] {
     const allReadings = this.getReadings();
     return allReadings.filter(reading => reading.idUsuario === userId);
+  }
+  /**
+   * Get all meters from localStorage
+   */
+  getMeters(): WaterMeter[] {
+    const meters = localStorage.getItem(this.METERS_KEY);
+    return meters ? JSON.parse(meters) : [];
+  }
+  /**
+   * Get meters for a specific user
+   */
+  getUserMeters(userId: string | number): WaterMeter[] {
+    const allMeters = this.getMeters();
+    return allMeters.filter(meter => meter.idUsuario === userId);
+  }
+  /**
+   * Get all users from localStorage
+   */
+  getUsers(): User[] {
+    const users = localStorage.getItem(this.USERS_KEY);
+    return users ? JSON.parse(users) : [];
+  }
+  /**
+   * Get only client users
+   */
+  getClientUsers(): User[] {
+    const allUsers = this.getUsers();
+    return allUsers.filter(user => user.role === 'cliente');
   }
   /**
    * Force re-initialization (for development/testing)
