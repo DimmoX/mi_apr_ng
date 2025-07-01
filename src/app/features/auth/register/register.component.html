@@ -1,0 +1,139 @@
+<div class="register-container">
+  <mat-card class="register-card">
+    <mat-card-header>
+      <mat-card-title>Crear Cuenta</mat-card-title>
+      <mat-card-subtitle>Sistema de Gestión APR</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="register-form-section">
+        <p class="instructions">
+          Complete los siguientes datos para crear su cuenta en el sistema.
+        </p>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+          <div class="form-row">
+            <div class="name-field-container">
+              <mat-form-field appearance="outline" subscriptSizing="dynamic" class="half-width name-field">
+                <mat-label>Nombre</mat-label>
+                <input matInput type="text" formControlName="name" placeholder="Juan">
+                <mat-icon matSuffix>person</mat-icon>
+              </mat-form-field>
+              <div class="error-overlay" 
+                   *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid">
+                {{ getNameError() }}
+              </div>
+            </div>
+            <div class="lastname-field-container">
+              <mat-form-field appearance="outline" subscriptSizing="dynamic" class="half-width lastname-field">
+                <mat-label>Apellido</mat-label>
+                <input matInput type="text" formControlName="lastname" placeholder="Pérez">
+                <mat-icon matSuffix>person_outline</mat-icon>
+              </mat-form-field>
+              <div class="error-overlay" 
+                   *ngIf="registerForm.get('lastname')?.touched && registerForm.get('lastname')?.invalid">
+                {{ getLastnameError() }}
+              </div>
+            </div>
+          </div>
+          <div class="email-field-container">
+            <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width email-field">
+              <mat-label>Correo Electrónico</mat-label>
+              <input matInput type="email" formControlName="email" placeholder="juan.perez@ejemplo.cl">
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+            <div class="error-overlay" 
+                 *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+              {{ getEmailError() }}
+            </div>
+          </div>
+          <div class="phone-field-container">
+            <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width phone-field">
+              <mat-label>Teléfono</mat-label>
+              <input matInput type="tel" formControlName="phone" placeholder="+56912345678">
+              <mat-icon matSuffix>phone</mat-icon>
+            </mat-form-field>
+            <div class="error-overlay" 
+                 *ngIf="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid">
+              {{ getPhoneError() }}
+            </div>
+          </div>
+          <div class="password-field-container">
+            <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width password-field">
+              <mat-label>Contraseña</mat-label>
+              <input matInput 
+                     [type]="hidePassword() ? 'password' : 'text'"
+                     formControlName="password"
+                     placeholder="Mínimo 8 caracteres">
+              <button mat-icon-button 
+                      matSuffix 
+                      type="button"
+                      (click)="togglePasswordVisibility()"
+                      [attr.aria-label]="'Toggle password visibility'"
+                      [attr.aria-pressed]="hidePassword()">
+                <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </mat-form-field>
+            <div class="error-overlay" 
+                 *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+              {{ getPasswordError() }}
+            </div>
+          </div>
+          <div class="password-strength" *ngIf="registerForm.get('password')?.value">
+            <div class="strength-label">
+              Fortaleza de contraseña: 
+              <span [style.color]="passwordStrength().color">{{ passwordStrength().text }}</span>
+            </div>
+            <mat-progress-bar 
+              mode="determinate" 
+              [value]="(passwordStrength().level / 3) * 100"
+              [color]="passwordStrength().level > 1 ? 'primary' : 'warn'">
+            </mat-progress-bar>
+          </div>
+          <div class="confirm-password-field-container">
+            <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width confirm-password-field">
+              <mat-label>Confirmar Contraseña</mat-label>
+              <input matInput 
+                     [type]="hideConfirmPassword() ? 'password' : 'text'"
+                     formControlName="confirmPassword"
+                     placeholder="Repite tu contraseña">
+              <button mat-icon-button 
+                      matSuffix 
+                      type="button"
+                      (click)="toggleConfirmPasswordVisibility()"
+                      [attr.aria-label]="'Toggle confirm password visibility'"
+                      [attr.aria-pressed]="hideConfirmPassword()">
+                <mat-icon>{{ hideConfirmPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </mat-form-field>
+            <div class="error-overlay" 
+                 *ngIf="registerForm.get('confirmPassword')?.touched && 
+                       (registerForm.get('confirmPassword')?.invalid || registerForm.hasError('passwordMismatch'))">
+              {{ getConfirmPasswordError() }}
+            </div>
+          </div>
+        </form>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="register-actions">
+      <div class="register-form-actions">
+        <button mat-raised-button 
+                color="primary" 
+                type="submit"
+                [disabled]="isLoading()"
+                (click)="onSubmit()"
+                class="full-width register-button">
+          <span *ngIf="!isLoading()">Crear Cuenta</span>
+          <mat-spinner *ngIf="isLoading()" diameter="20"></mat-spinner>
+        </button>
+      </div>
+      <div class="login-link">
+        <span>¿Ya tienes cuenta? </span>
+        <button mat-button 
+                type="button"
+                class="login-link-button"
+                (click)="navigateToLogin()">
+          Inicia sesión aquí
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

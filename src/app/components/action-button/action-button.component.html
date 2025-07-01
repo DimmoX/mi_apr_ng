@@ -1,0 +1,123 @@
+<ng-container [ngSwitch]="variant">
+  <!-- Botón raised -->
+  <button 
+    *ngSwitchCase="'raised'"
+    mat-raised-button
+    [color]="color"
+    [disabled]="disabled || loading"
+    (click)="onClick()"
+    [ngClass]="{
+      'action-button--full-width': fullWidth,
+      'action-button--small': size === 'small',
+      'action-button--medium': size === 'medium',
+      'action-button--large': size === 'large'
+    }"
+    class="action-button">
+    <mat-icon *ngIf="loading" class="action-button__spinner">refresh</mat-icon>
+    <mat-icon *ngIf="icon && !loading" class="action-button__icon">{{ icon }}</mat-icon>
+    <span class="action-button__text">{{ text }}</span>
+  </button>
+
+  <!-- Botón flat -->
+  <button 
+    *ngSwitchCase="'flat'"
+    mat-flat-button
+    [color]="color"
+    [disabled]="disabled || loading"
+    (click)="onClick()"
+    [ngClass]="{
+      'action-button--full-width': fullWidth,
+      'action-button--small': size === 'small',
+      'action-button--medium': size === 'medium',
+      'action-button--large': size === 'large'
+    }"
+    class="action-button">
+    <mat-icon *ngIf="loading" class="action-button__spinner">refresh</mat-icon>
+    <mat-icon *ngIf="icon && !loading" class="action-button__icon">{{ icon }}</mat-icon>
+    <span class="action-button__text">{{ text }}</span>
+  </button>
+
+  <!-- Botón stroked -->
+  <button 
+    *ngSwitchCase="'stroked'"
+    mat-stroked-button
+    [color]="color"
+    [disabled]="disabled || loading"
+    (click)="onClick()"
+    [ngClass]="{
+      'action-button--full-width': fullWidth,
+      'action-button--small': size === 'small',
+      'action-button--medium': size === 'medium',
+      'action-button--large': size === 'large'
+    }"
+    class="action-button">
+    <mat-icon *ngIf="loading" class="action-button__spinner">refresh</mat-icon>
+    <mat-icon *ngIf="icon && !loading" class="action-button__icon">{{ icon }}</mat-icon>
+    <span class="action-button__text">{{ text }}</span>
+  </button>
+
+  <!-- Botón FAB -->
+  <button 
+    *ngSwitchCase="'fab'"
+    mat-fab
+    [color]="color"
+    [disabled]="disabled || loading"
+    (click)="onClick()"
+    [ngClass]="{
+      'action-button--small': size === 'small',
+      'action-button--medium': size === 'medium',
+      'action-button--large': size === 'large'
+    }"
+    class="action-button">
+    <mat-icon *ngIf="loading" class="action-button__spinner">refresh</mat-icon>
+    <mat-icon *ngIf="icon && !loading">{{ icon }}</mat-icon>
+  </button>
+
+  <!-- Botón Mini FAB -->
+  <button 
+    *ngSwitchCase="'mini-fab'"
+    mat-mini-fab
+    [color]="color"
+    [disabled]="disabled || loading"
+    (click)="onClick()"
+    class="action-button">
+    <mat-icon *ngIf="loading" class="action-button__spinner">refresh</mat-icon>
+    <mat-icon *ngIf="icon && !loading">{{ icon }}</mat-icon>
+  </button>
+
+  <!-- Icon Button -->
+  <button 
+    *ngSwitchCase="'icon'"
+    mat-icon-button
+    [color]="color"
+    [disabled]="disabled || loading"
+    (click)="onClick()"
+    [ngClass]="{
+      'action-button--small': size === 'small',
+      'action-button--medium': size === 'medium',
+      'action-button--large': size === 'large'
+    }"
+    class="action-button">
+    <mat-icon *ngIf="loading" class="action-button__spinner">refresh</mat-icon>
+    <mat-icon *ngIf="icon && !loading">{{ icon }}</mat-icon>
+  </button>
+
+  <!-- Default Button (Basic) -->
+  <button 
+    *ngSwitchDefault
+    mat-button
+    [color]="color"
+    [disabled]="disabled || loading"
+    (click)="onClick()"
+    [ngClass]="{
+      'action-button--full-width': fullWidth,
+      'action-button--small': size === 'small',
+      'action-button--medium': size === 'medium',
+      'action-button--large': size === 'large'
+    }"
+    class="action-button">
+    <mat-icon *ngIf="loading" class="action-button__spinner">refresh</mat-icon>
+    <mat-icon *ngIf="icon && !loading" class="action-button__icon">{{ icon }}</mat-icon>
+    <span class="action-button__text">{{ text }}</span>
+  </button>
+</ng-container>

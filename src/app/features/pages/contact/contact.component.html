@@ -1,0 +1,111 @@
+<div class="contact-container">
+  <div class="hero-section">
+    <h1>Contáctanos</h1>
+    <p class="hero-subtitle">Estamos aquí para ayudarte con todas tus consultas</p>
+  </div>
+  <div class="content-section">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h2>Información de Contacto</h2>
+        <div class="info-item">
+          <mat-icon>location_on</mat-icon>
+          <div>
+            <h4>Dirección</h4>
+            <p>Av. Principal 123, Comuna Rural<br>Región de Valparaíso, Chile</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <mat-icon>phone</mat-icon>
+          <div>
+            <h4>Teléfono</h4>
+            <p>+56 9 1234 5678</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <mat-icon>email</mat-icon>
+          <div>
+            <h4>Email</h4>
+            <p>contacto&#64;apr-rural.cl</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <mat-icon>schedule</mat-icon>
+          <div>
+            <h4>Horario de Atención</h4>
+            <p>Lunes a Viernes: 8:00 - 17:00<br>Sábado: 9:00 - 13:00</p>
+          </div>
+        </div>
+        <div class="emergency-section">
+          <h3>Emergencias</h3>
+          <p>Para reportar emergencias de suministro de agua, contáctanos las 24 horas:</p>
+          <p class="emergency-phone">📞 +56 9 8765 4321</p>
+        </div>
+      </div>
+      <div class="contact-form">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Envíanos un Mensaje</mat-card-title>
+            <mat-card-subtitle>Responderemos tu consulta a la brevedad</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+              <div class="form-row">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Nombre completo</mat-label>
+                  <input matInput formControlName="name" placeholder="Tu nombre completo">
+                  <mat-icon matSuffix>person</mat-icon>
+                  <mat-error>{{ getErrorMessage('name') }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-row">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Email</mat-label>
+                  <input matInput type="email" formControlName="email" placeholder="tu@email.com">
+                  <mat-icon matSuffix>email</mat-icon>
+                  <mat-error>{{ getErrorMessage('email') }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-row">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Teléfono (opcional)</mat-label>
+                  <input matInput formControlName="phone" placeholder="+56987654321">
+                  <mat-icon matSuffix>phone</mat-icon>
+                  <mat-error>{{ getErrorMessage('phone') }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-row">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Asunto</mat-label>
+                  <input matInput formControlName="subject" placeholder="Asunto de tu consulta">
+                  <mat-icon matSuffix>subject</mat-icon>
+                  <mat-error>{{ getErrorMessage('subject') }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-row">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Mensaje</mat-label>
+                  <textarea matInput 
+                           formControlName="message" 
+                           placeholder="Describe tu consulta o problema..."
+                           rows="5">
+                  </textarea>
+                  <mat-icon matSuffix>message</mat-icon>
+                  <mat-error>{{ getErrorMessage('message') }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-actions">
+                <button mat-raised-button 
+                        color="primary" 
+                        type="submit"
+                        [disabled]="contactForm.invalid">
+                  <mat-icon>send</mat-icon>
+                  Enviar Mensaje
+                </button>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

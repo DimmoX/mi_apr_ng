@@ -1,0 +1,11 @@
+<mat-card 
+  class="feature-card" 
+  [class.clickable]="clickable"
+  (click)="onClick()"
+  [style.cursor]="clickable ? 'pointer' : 'default'">
+  <mat-card-content class="feature-content">
+    <mat-icon class="feature-icon">{{ icon }}</mat-icon>
+    <h3 class="feature-title">{{ title }}</h3>
+    <p class="feature-description">{{ description }}</p>
+  </mat-card-content>
+</mat-card>

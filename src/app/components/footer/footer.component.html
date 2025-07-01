@@ -1,0 +1,99 @@
+<footer class="app-footer">
+  <div class="footer-container">
+    <!-- Footer Content -->
+    <div class="footer-content">
+      <!-- Brand Section -->
+      <div class="footer-section brand-section">
+        <div class="footer-brand">
+          <mat-icon class="brand-icon">water_drop</mat-icon>
+          <span class="brand-text">Mi APR</span>
+        </div>
+        <p class="brand-description">
+          Sistema de gestión para Agua Potable Rural. 
+          Administra eficientemente el suministro de agua en tu comunidad.
+        </p>
+        <div class="social-links">
+          <button mat-icon-button 
+                  class="social-button"
+                  (click)="navigateToExternal('https://facebook.com')"
+                  matTooltip="Síguenos en Facebook">
+            <mat-icon>facebook</mat-icon>
+          </button>
+          <button mat-icon-button 
+                  class="social-button"
+                  (click)="navigateToExternal('https://twitter.com')"
+                  matTooltip="Síguenos en Twitter">
+            <mat-icon>twitter</mat-icon>
+          </button>
+          <button mat-icon-button 
+                  class="social-button"
+                  (click)="navigateToExternal('https://instagram.com')"
+                  matTooltip="Síguenos en Instagram">
+            <mat-icon>instagram</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Links Section -->
+      <div class="footer-section links-section">
+        <h4 class="section-title">Enlaces Útiles</h4>
+        <ul class="footer-links">
+          <li><a routerLink="/home">Inicio</a></li>
+          <li><a routerLink="/about">Acerca de</a></li>
+          <li><a routerLink="/contact">Contacto</a></li>
+          <li><a routerLink="/dashboard">Dashboard</a></li>
+        </ul>
+      </div>
+
+      <!-- Services Section -->
+      <div class="footer-section services-section">
+        <h4 class="section-title">Servicios</h4>
+        <ul class="footer-links">
+          <li><a routerLink="/readings">Lecturas</a></li>
+          <li><a routerLink="/profile">Mi Perfil</a></li>
+          <li><a href="#" (click)="navigateToExternal('#')">Reportes</a></li>
+          <li><a href="#" (click)="navigateToExternal('#')">Mantenimiento</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="footer-section contact-section">
+        <h4 class="section-title">Contacto</h4>
+        <div class="contact-info">
+          <div class="contact-item">
+            <mat-icon>location_on</mat-icon>
+            <span>Santiago, Chile</span>
+          </div>
+          <div class="contact-item">
+            <mat-icon>phone</mat-icon>
+            <span>
+              <a href="#" (click)="openPhone('+56912345678')">+56 9 1234 5678</a>
+            </span>
+          </div>
+          <div class="contact-item">
+            <mat-icon>email</mat-icon>
+            <span>
+              <a href="#" (click)="openEmail('info&#64;miapr.cl')">info&#64;miapr.cl</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <div class="copyright">
+          <p>&copy; {{ currentYear }} Mi APR. Todos los derechos reservados.</p>
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#" (click)="navigateToExternal('#')">Política de Privacidad</a>
+          <span class="separator">|</span>
+          <a href="#" (click)="navigateToExternal('#')">Términos de Uso</a>
+          <span class="separator">|</span>
+          <a href="#" (click)="navigateToExternal('#')">Soporte</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

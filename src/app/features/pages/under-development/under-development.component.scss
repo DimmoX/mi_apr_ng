@@ -1,0 +1,155 @@
+.under-development-container {
+  min-height: calc(100vh - 64px);
+  background: var(--light-water-gradient);
+}
+.content-wrapper {
+  padding: 32px 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.development-content {
+  text-align: center;
+  .construction-icon {
+    margin: 32px 0;
+    mat-icon {
+      font-size: 120px;
+      width: 120px;
+      height: 120px;
+      color: var(--water-primary);
+      opacity: 0.7;
+      animation: bounce 2s infinite;
+    }
+  }
+  .main-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+  .main-description {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 48px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+    @media (max-width: 768px) {
+      font-size: 1.125rem;
+      margin-bottom: 32px;
+    }
+  }
+}
+.coming-soon-card {
+  margin: 32px auto;
+  max-width: 500px;
+  border: 2px solid var(--water-surface);
+  border-radius: 16px;
+  box-shadow: var(--subtle-shadow);
+  mat-card-header {
+    padding-bottom: 16px;
+    mat-card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--water-primary);
+      font-weight: 600;
+      mat-icon {
+        color: var(--water-primary);
+      }
+    }
+  }
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      color: var(--text-secondary);
+      font-weight: 500;
+      mat-icon {
+        color: var(--success-color);
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--water-surface);
+      }
+    }
+  }
+}
+.action-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 48px 0;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+}
+.contact-info {
+  margin-top: 48px;
+  .contact-card {
+    max-width: 400px;
+    margin: 0 auto;
+    border: 2px solid var(--water-surface);
+    border-radius: 16px;
+    box-shadow: var(--subtle-shadow);
+    mat-card-content {
+      text-align: center;
+      h3 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: var(--water-primary);
+        font-weight: 600;
+        margin-bottom: 16px;
+        mat-icon {
+          color: var(--water-primary);
+        }
+      }
+      p {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 24px;
+      }
+    }
+  }
+}
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding: 24px 16px;
+  }
+  .development-content .construction-icon mat-icon {
+    font-size: 80px;
+    width: 80px;
+    height: 80px;
+  }
+  .coming-soon-card,
+  .contact-info .contact-card {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+}

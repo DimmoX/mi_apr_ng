@@ -1,0 +1,24 @@
+<div class="page-header">
+  <div class="header-navigation">
+    <button 
+      *ngIf="showBackButton"
+      mat-icon-button 
+      (click)="onBackClick()" 
+      class="back-button" 
+      [matTooltip]="backButtonTooltip">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="breadcrumb" *ngIf="breadcrumbPath && breadcrumbCurrent">
+      <span class="breadcrumb-item">{{ breadcrumbPath }}</span>
+      <mat-icon class="breadcrumb-separator">chevron_right</mat-icon>
+      <span class="breadcrumb-current">{{ breadcrumbCurrent }}</span>
+    </div>
+    <div class="header-content">
+      <h1 class="page-title">
+        <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+        {{ title }}
+      </h1>
+      <p class="page-subtitle" *ngIf="subtitle">{{ subtitle }}</p>
+    </div>
+  </div>
+</div>

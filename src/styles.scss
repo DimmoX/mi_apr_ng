@@ -1,0 +1,304 @@
+// @angular/material se importa para utilizar los temas y componentes de Angular Material.
+@use '@angular/material' as mat;
+
+// Importa el núcleo de Angular Material para utilizar sus mixins y funciones.
+@include mat.core();
+
+$blue-palette: (
+  50: #f3f8ff,   // azul muy claro
+  100: #e6f1ff,  // azul claro
+  200: #cce3ff,  // azul claro medio
+  300: #91beff,  // azul claro
+  400: #73a7eb,  // azul medio claro
+  500: #5690d7,  // azul principal
+  600: #3878c2,  // azul medio
+  700: #1a61ae,  // azul oscuro
+  800: #155299,  // azul muy oscuro
+  900: #104284,  // azul más profundo
+  A100: #cce3ff, // color de apoyo azul muy claro
+  A200: #91beff, // color de apoyo azul tonalidad clara
+  A400: #5690d7, // color de apoyo azul tonalidad media
+  A700: #1a61ae, // color de apoyo azul muy oscuro
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: white,
+    A700: white,
+  )
+);
+// paleta de colores complementarias.
+$light-blue-palette: (
+  50: #f3f8ff,   // azul muy claro
+  100: #e6f1ff,  // azul claro
+  200: #cce3ff,  // azul claro medio
+  300: #91beff,  // azul claro
+  400: #73a7eb,  // azul medio claro
+  500: #91beff,  // acento principal (azul más claro)
+  600: #73a7eb,  // acento medio
+  700: #5690d7,  // color de acento
+  800: #3878c2,  // color de acento oscuro
+  900: #1a61ae,  // color de acento muy oscuro
+  A100: #e6f1ff, // color de apoyo claro
+  A200: #cce3ff, // color de apoyo medio
+  A400: #73a7eb, // color de apoyo oscuro
+  A700: #5690d7, // color de apoyo muy oscuro
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: rgba(black, 0.87),
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: white,
+  )
+);
+$mi-apr-ng-primary: mat.define-palette($blue-palette, 500, 300, 700);
+$mi-apr-ng-accent: mat.define-palette($light-blue-palette, 600, 500, 700);
+// The warn palette is optional (defaults to red).
+$mi-apr-ng-warn: mat.define-palette(mat.$red-palette);
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$mi-apr-ng-theme: mat.define-light-theme((
+  color: (
+    primary: $mi-apr-ng-primary,
+    accent: $mi-apr-ng-accent,
+    warn: $mi-apr-ng-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($mi-apr-ng-theme);
+// Blue-themed CSS Custom Properties (Professional Design)
+:root {
+  // Primary blue colors (based on provided palette)
+  --water-primary: #1a61ae;        // Dark blue (main brand color)
+  --water-primary-light: #5690d7;  // Medium blue
+  --water-primary-dark: #155299;   // Darker blue
+  --water-primary-darker: #104284; // Deepest blue
+  // Surface blue colors (subtle backgrounds)
+  --water-surface: #f3f8ff;         // Very light blue surface
+  --water-surface-light: #f8fbff;   // Almost white with blue hint
+  --water-ripple: #e6f1ff;          // Light blue for ripples
+  // Depth colors (blue hierarchy)
+  --water-shallow: #91beff;         // Light blue (shallow)
+  --water-medium: #5690d7;          // Medium blue
+  --water-deep: #3878c2;           // Dark blue
+  --water-abyss: #1a61ae;          // Deepest blue
+  // Complementary colors
+  --foam-white: #ffffff;            // Pure white
+  --sea-foam: #f0f4ff;             // Very light blue-white tint
+  --ocean-mist: #f3f8ff;           // Light blue mist
+  // Text colors (excellent contrast ratios)
+  --text-on-water: #ffffff;        // White text on dark blue
+  --text-on-light-water: #104284;  // Deepest blue on light backgrounds
+  --text-on-surface: #1a61ae;      // Dark blue on white/light surfaces
+  --text-primary: #1a1a1a;         // Very dark gray for main text
+  --text-secondary: #2c2c2c;       // Darker gray for better visibility
+  --text-muted: #4a4a4a;           // Medium-dark gray for muted text
+  // Gradients (blue professional)
+  --water-gradient: linear-gradient(135deg, #1a61ae 0%, #155299 50%, #104284 100%);
+  --ocean-gradient: linear-gradient(180deg, #f3f8ff 0%, #91beff 25%, #5690d7 75%, #1a61ae 100%);
+  --light-water-gradient: linear-gradient(135deg, #f8fbff 0%, #f3f8ff 50%, #e6f1ff 100%);
+  // Shadows (blue-themed)
+  --water-shadow: 0 4px 20px rgba(26, 97, 174, 0.15);
+  --water-shadow-hover: 0 8px 32px rgba(26, 97, 174, 0.25);
+  --aqua-shadow: 0 4px 20px rgba(86, 144, 215, 0.15);
+  --deep-water-shadow: 0 8px 32px rgba(16, 66, 132, 0.3);
+  --subtle-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  // Background colors (optimal readability)
+  --bg-primary: #fafafa;           // Light gray background
+  --bg-surface: #ffffff;           // Pure white surface
+  --bg-water-light: #f3f8ff;      // Very light blue background
+  --bg-accent: #f8fbff;            // Accent background
+  // Interactive states (accessible)
+  --interactive-hover: #e6f1ff;    // Light blue hover
+  --interactive-active: #cce3ff;   // Medium blue active
+  --interactive-focus: #5690d7;    // Blue focus ring
+  // Status colors (WCAG AA compliant)
+  --success-color: #2e7d32;        // Dark green
+  --warning-color: #f57c00;        // Dark orange
+  --error-color: #d32f2f;          // Dark red
+  --info-color: #5690d7;           // Blue
+  
+  // RGB values for alpha blending
+  --water-primary-rgb: 26, 97, 174;     // --water-primary RGB
+  --water-accent-rgb: 86, 144, 215;     // --water-primary-light RGB
+  --water-accent: #5690d7;              // Water accent color
+  --water-accent-dark: #3878c2;         // Darker water accent
+}
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// Global Snackbar Styles - Positioned at top-right
+.custom-snackbar {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  left: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  max-width: 400px !important;
+  min-width: 300px !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+  font-weight: 500 !important;
+  z-index: 1000 !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  
+  // Estilo del texto principal
+  .mat-mdc-snack-bar-label {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    font-weight: 500 !important;
+  }
+  
+  // Estilo del botón de acción
+  .mat-mdc-snack-bar-action {
+    font-weight: 600 !important;
+    border-radius: 6px !important;
+    padding: 0 12px !important;
+    transition: all 0.2s ease !important;
+    
+    &:hover {
+      transform: translateY(-1px) !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    }
+  }
+}
+
+// Success notifications (verde estándar pero con mejoras visuales)
+.success-snackbar {
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%) !important;
+  color: white !important;
+  border-left: 4px solid #2e7d32 !important;
+  
+  .mat-mdc-snack-bar-action {
+    color: #e8f5e8 !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+  }
+}
+
+// Error notifications (rojo estándar pero con mejoras visuales)
+.error-snackbar {
+  background: linear-gradient(135deg, #f44336 0%, #e53935 100%) !important;
+  color: white !important;
+  border-left: 4px solid #c62828 !important;
+  
+  .mat-mdc-snack-bar-action {
+    color: #ffebee !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+  }
+}
+
+// Warning notifications (naranja estándar pero con mejoras visuales)
+.warning-snackbar {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%) !important;
+  color: white !important;
+  border-left: 4px solid #e65100 !important;
+  
+  .mat-mdc-snack-bar-action {
+    color: #fff3e0 !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+  }
+}
+
+// Info notifications (usando la paleta de azules de la aplicación)
+.info-snackbar {
+  background: linear-gradient(135deg, #5690d7 0%, #3878c2 100%) !important;
+  color: white !important;
+  border-left: 4px solid #1a61ae !important;
+  
+  .mat-mdc-snack-bar-action {
+    color: #f3f8ff !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+  }
+}
+
+// Notificaciones generales (usando colores de la paleta de la aplicación)
+.custom-snackbar:not(.success-snackbar):not(.error-snackbar):not(.warning-snackbar):not(.info-snackbar) {
+  background: linear-gradient(135deg, #5690d7 0%, #3878c2 100%) !important;
+  color: white !important;
+  border-left: 4px solid #1a61ae !important;
+  
+  .mat-mdc-snack-bar-action {
+    color: #f3f8ff !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+  }
+}
+
+// Animation for snackbar entrance
+.custom-snackbar {
+  animation: slideInFromRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%) scale(0.9);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(-5%) scale(1.02);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+// Responsive adjustments for mobile
+@media (max-width: 768px) {
+  .custom-snackbar {
+    top: 10px !important;
+    right: 10px !important;
+    left: 10px !important;
+    max-width: none !important;
+    min-width: auto !important;
+    border-radius: 8px !important;
+    
+    .mat-mdc-snack-bar-label {
+      font-size: 13px !important;
+    }
+  }
+}

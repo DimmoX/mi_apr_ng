@@ -1,0 +1,38 @@
+<div class="home-container">
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Sistema de Gestión APR</h1>
+      <p class="hero-subtitle">
+        Plataforma moderna para la administración de Agua Potable Rural
+      </p>
+      <div class="hero-actions">
+        <app-action-button
+          text="Registrarse"
+          icon="person_add"
+          color="primary"
+          (clicked)="navigate('/register')">
+        </app-action-button>
+        <app-action-button
+          text="Conocer más"
+          icon="info"
+          variant="stroked"
+          (clicked)="navigate('/about')">
+        </app-action-button>
+      </div>
+    </div>
+  </section>
+  <section class="features-section">
+    <div class="section-header">
+      <h2>Características Principales</h2>
+      <p>Todo lo que necesitas para gestionar tu sistema de agua potable rural</p>
+    </div>
+    <div class="features-grid">
+      <app-feature-card 
+        *ngFor="let feature of features"
+        [title]="feature.title"
+        [description]="feature.description"
+        [icon]="feature.icon">
+      </app-feature-card>
+    </div>
+  </section>
+</div>

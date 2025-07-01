@@ -1,0 +1,93 @@
+<div class="under-development-container">
+  <app-page-header
+    title="En Desarrollo"
+    subtitle="Esta funcionalidad estará disponible próximamente"
+    icon="construction"
+    [showBackButton]="true">
+  </app-page-header>
+  <div class="content-wrapper">
+    <div class="development-content">
+      <div class="construction-icon">
+        <mat-icon>construction</mat-icon>
+      </div>
+      <h2 class="main-title">¡Estamos trabajando en esto!</h2>
+      <p class="main-description">
+        Esta funcionalidad se encuentra actualmente en desarrollo. 
+        Nuestro equipo está trabajando para implementarla pronto.
+      </p>
+      <mat-card class="coming-soon-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>upcoming</mat-icon>
+            Próximamente
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ul class="features-list">
+            <li>
+              <mat-icon>check_circle_outline</mat-icon>
+              Reportes avanzados de consumo
+            </li>
+            <li>
+              <mat-icon>check_circle_outline</mat-icon>
+              Sistema de mantenimiento preventivo
+            </li>
+            <li>
+              <mat-icon>check_circle_outline</mat-icon>
+              Notificaciones automáticas
+            </li>
+            <li>
+              <mat-icon>check_circle_outline</mat-icon>
+              Dashboard personalizable
+            </li>
+            <li>
+              <mat-icon>check_circle_outline</mat-icon>
+              Integración con sistemas externos
+            </li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+      <div class="action-buttons">
+        <app-action-button
+          text="Volver"
+          icon="arrow_back"
+          variant="stroked"
+          (clicked)="goBack()">
+        </app-action-button>
+        <app-action-button
+          text="Ir al Dashboard"
+          icon="dashboard"
+          color="primary"
+          (clicked)="goToDashboard()">
+        </app-action-button>
+        <app-action-button
+          text="Ir al Inicio"
+          icon="home"
+          variant="stroked"
+          (clicked)="goToHome()">
+        </app-action-button>
+      </div>
+      <div class="contact-info">
+        <mat-card class="contact-card">
+          <mat-card-content>
+            <h3>
+              <mat-icon>contact_support</mat-icon>
+              ¿Necesitas ayuda?
+            </h3>
+            <p>
+              Si tienes alguna pregunta o sugerencia sobre las funcionalidades 
+              en desarrollo, no dudes en contactarnos.
+            </p>
+            <app-action-button
+              text="Contactar Soporte"
+              icon="email"
+              variant="stroked"
+              size="small"
+              (clicked)="goToContact()">
+            </app-action-button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

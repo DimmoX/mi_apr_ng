@@ -1,0 +1,118 @@
+<div class="profile-container">
+  <app-page-header
+    title="Mi Perfil"
+    subtitle="Administra tu información personal"
+    icon="person"
+    breadcrumbPath="Dashboard"
+    breadcrumbCurrent="Mi Perfil"
+    (backClick)="goBack()">
+  </app-page-header>
+  <div class="profile-content">
+    <mat-card class="profile-card">
+      <mat-card-header>
+        <mat-card-title>Información Personal</mat-card-title>
+        <mat-card-subtitle>Actualiza tu información de perfil</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Nombre</mat-label>
+              <input matInput 
+                     formControlName="name" 
+                     placeholder="Tu nombre">
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-error>{{ getErrorMessage('name') }}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Apellido</mat-label>
+              <input matInput 
+                     formControlName="lastname" 
+                     placeholder="Tu apellido">
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-error>{{ getErrorMessage('lastname') }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Email</mat-label>
+              <input matInput 
+                     type="email" 
+                     formControlName="email" 
+                     placeholder="tu@email.com"
+                     readonly>
+              <mat-icon matSuffix>email</mat-icon>
+              <mat-hint>El email no se puede modificar</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Teléfono</mat-label>
+              <input matInput 
+                     formControlName="phone" 
+                     placeholder="+56987654321">
+              <mat-icon matSuffix>phone</mat-icon>
+              <mat-error>{{ getErrorMessage('phone') }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-row info-section">
+            <div class="info-item">
+              <strong>Rol:</strong> 
+              <span class="role-badge">{{ authService.getUserRoleDisplayName() }}</span>
+            </div>
+            <div class="info-item" *ngIf="currentUser()?.createdAt">
+              <strong>Miembro desde:</strong> 
+              <span>{{ currentUser()?.createdAt | date:'mediumDate' }}</span>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-actions class="card-actions">
+        <app-action-button
+          text="Cancelar"
+          icon="cancel"
+          variant="flat"
+          (clicked)="goBack()">
+        </app-action-button>
+        <app-action-button
+          text="{{ isLoading ? 'Guardando...' : 'Guardar Cambios' }}"
+          icon="save"
+          color="primary"
+          [disabled]="profileForm.invalid"
+          [loading]="isLoading"
+          (clicked)="onSubmit()">
+        </app-action-button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>Información de la Cuenta</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="account-info">
+          <div class="info-row">
+            <mat-icon>security</mat-icon>
+            <div>
+              <strong>Seguridad</strong>
+              <p>Tu cuenta está protegida con autenticación segura</p>
+            </div>
+          </div>
+          <div class="info-row">
+            <mat-icon>privacy_tip</mat-icon>
+            <div>
+              <strong>Privacidad</strong>
+              <p>Tus datos personales están protegidos según nuestras políticas</p>
+            </div>
+          </div>
+          <div class="info-row">
+            <mat-icon>support</mat-icon>
+            <div>
+              <strong>Soporte</strong>
+              <p>¿Necesitas ayuda? Contacta a nuestro equipo de soporte</p>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

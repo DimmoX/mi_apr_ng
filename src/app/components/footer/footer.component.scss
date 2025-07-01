@@ -1,0 +1,301 @@
+.app-footer {
+  background: linear-gradient(135deg, 
+              var(--water-primary-dark) 0%, 
+              var(--water-primary-darker) 100%);
+  color: var(--foam-white);
+  margin-top: auto;
+  position: relative;
+  overflow: hidden;
+
+  // Decorative background pattern
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-content {
+    padding: 48px 32px 32px 32px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 32px 20px 24px 20px;
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      padding: 40px 24px 28px 24px;
+    }
+  }
+
+  .footer-section {
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--foam-white);
+      margin-bottom: 16px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  // Brand Section
+  .brand-section {
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+
+      .brand-icon {
+        font-size: 32px;
+        width: 32px;
+        height: 32px;
+        color: var(--foam-white);
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+      }
+
+      .brand-text {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--foam-white);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    .brand-description {
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+
+      .social-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: var(--foam-white);
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+  }
+
+  // Links Sections
+  .links-section,
+  .services-section {
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 12px;
+
+        a {
+          color: rgba(255, 255, 255, 0.8);
+          text-decoration: none;
+          font-size: 14px;
+          transition: all 0.3s ease;
+          position: relative;
+          display: inline-block;
+
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--foam-white);
+            transition: width 0.3s ease;
+          }
+
+          &:hover {
+            color: var(--foam-white);
+            transform: translateX(4px);
+
+            &::after {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Contact Section
+  .contact-section {
+    .contact-info {
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+          color: var(--foam-white);
+        }
+
+        a {
+          color: rgba(255, 255, 255, 0.8);
+          text-decoration: none;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: var(--foam-white);
+          }
+        }
+      }
+    }
+  }
+
+  // Footer Bottom
+  .footer-bottom {
+    padding: 20px 32px;
+    background: rgba(0, 0, 0, 0.2);
+
+    @media (max-width: 768px) {
+      padding: 16px 20px;
+    }
+
+    .footer-bottom-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .copyright {
+        color: rgba(255, 255, 255, 0.7);
+
+        p {
+          margin: 0;
+        }
+      }
+
+      .footer-bottom-links {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        @media (max-width: 768px) {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 12px;
+        }
+
+        a {
+          color: rgba(255, 255, 255, 0.7);
+          text-decoration: none;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: var(--foam-white);
+          }
+        }
+
+        .separator {
+          color: rgba(255, 255, 255, 0.4);
+
+          @media (max-width: 768px) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .app-footer {
+    .footer-content {
+      padding: 24px 16px 20px 16px;
+      gap: 24px;
+    }
+
+    .brand-section {
+      .footer-brand {
+        .brand-icon {
+          font-size: 28px;
+          width: 28px;
+          height: 28px;
+        }
+
+        .brand-text {
+          font-size: 20px;
+        }
+      }
+
+      .social-links {
+        .social-button {
+          width: 36px;
+          height: 36px;
+
+          mat-icon {
+            font-size: 16px;
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+
+    .footer-bottom {
+      padding: 14px 16px;
+
+      .footer-bottom-content {
+        font-size: 12px;
+        gap: 12px;
+      }
+    }
+  }
+}

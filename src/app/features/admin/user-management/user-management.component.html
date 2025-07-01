@@ -1,0 +1,86 @@
+<div class="user-management-container">
+  <app-page-header
+    title="Gestión de Usuarios"
+    subtitle="Administra los usuarios del sistema APR"
+    icon="group"
+    breadcrumbPath="Dashboard"
+    breadcrumbCurrent="Gestión de Usuarios"
+    (backClick)="goBack()">
+  </app-page-header>
+  <div class="user-management-content">
+    <mat-card class="table-card">
+      <mat-card-content>
+        <div class="table-actions">
+          <app-action-button
+            text="Nuevo Usuario"
+            icon="add"
+            color="primary"
+            (clicked)="openCreateUserDialog()">
+          </app-action-button>
+          <app-action-button
+            text="Actualizar"
+            icon="refresh"
+            variant="flat"
+            (clicked)="loadUsers()">
+          </app-action-button>
+        </div>
+      <div class="table-container">
+        <table mat-table [dataSource]="users()" class="users-table">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let user">
+              {{ user.name }} {{ user.lastname }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+          </ng-container>
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+            <td mat-cell *matCellDef="let user">{{ user.phone }}</td>
+          </ng-container>
+          <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef>Rol</th>
+            <td mat-cell *matCellDef="let user">
+              <mat-chip [color]="getRoleColor(user.role)">
+                {{ getRoleDisplayName(user.role) }}
+              </mat-chip>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let user">
+              <app-action-button
+                icon="edit"
+                variant="icon"
+                color="primary"
+                size="small"
+                (clicked)="editUser(user)">
+              </app-action-button>
+              <app-action-button
+                icon="delete"
+                variant="icon"
+                color="warn"
+                size="small"
+                [disabled]="isCurrentUser(user.id)"
+                (clicked)="deleteUser(user.id)">
+              </app-action-button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+        <div class="loading-container" *ngIf="isLoading()">
+          <p>Cargando usuarios...</p>
+        </div>
+        <div class="empty-state" *ngIf="!isLoading() && users().length === 0">
+          <mat-icon>people_outline</mat-icon>
+          <h3>No hay usuarios registrados</h3>
+          <p>Crea el primer usuario para comenzar</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

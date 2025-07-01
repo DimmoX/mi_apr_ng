@@ -1,0 +1,158 @@
+<div class="readings-container">
+  <app-page-header
+    title="Lecturas de Agua"
+    subtitle="Gestiona y consulta las lecturas de medidores"
+    icon="water_drop"
+    breadcrumbPath="Dashboard"
+    breadcrumbCurrent="Lecturas de Agua"
+    (backClick)="goBack()">
+  </app-page-header>
+  <div class="readings-content">
+    <mat-card *ngIf="canAddReading()" class="form-card">
+      <mat-card-header>
+        <mat-card-title>Registrar Nueva Lectura</mat-card-title>
+        <mat-card-subtitle>Ingresa la lectura del medidor de agua</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="readingForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Fecha de Lectura</mat-label>
+              <input matInput 
+                     [matDatepicker]="picker" 
+                     formControlName="date"
+                     readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Lectura Actual (m³)</mat-label>
+              <input matInput 
+                     type="number" 
+                     formControlName="currentReading" 
+                     placeholder="0">
+              <mat-icon matSuffix>speed</mat-icon>
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-actions class="card-actions">
+        <app-action-button
+          text="Registrar Lectura"
+          icon="add"
+          color="primary"
+          [disabled]="readingForm.invalid"
+          (clicked)="onSubmit()">
+        </app-action-button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card class="table-card">
+      <mat-card-header>
+        <mat-card-title>Historial de Lecturas</mat-card-title>
+        <mat-card-subtitle>
+          {{ userRole() === 'cliente' ? 'Tus lecturas de agua' : 'Lecturas registradas en el sistema' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="table-container" *ngIf="!isLoading(); else loadingTemplate">
+          <table mat-table [dataSource]="readings()" class="readings-table" *ngIf="readings().length > 0; else emptyTemplate">
+            <ng-container matColumnDef="fechaLectura">
+              <th mat-header-cell *matHeaderCellDef>Fecha</th>
+              <td mat-cell *matCellDef="let reading">{{ formatDate(reading.fechaLectura) }}</td>
+            </ng-container>
+            <ng-container matColumnDef="usuario">
+              <th mat-header-cell *matHeaderCellDef>Usuario</th>
+              <td mat-cell *matCellDef="let reading">
+                <span class="user-name">{{ getUserName(reading.idUsuario) }}</span>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="idMedidor">
+              <th mat-header-cell *matHeaderCellDef>Medidor</th>
+              <td mat-cell *matCellDef="let reading">
+                <span class="medidor-id">{{ reading.idMedidor }}</span>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="lecturaAnterior">
+              <th mat-header-cell *matHeaderCellDef>Lectura Anterior</th>
+              <td mat-cell *matCellDef="let reading">{{ reading.lecturaAnterior }} m³</td>
+            </ng-container>
+            <ng-container matColumnDef="lecturaActual">
+              <th mat-header-cell *matHeaderCellDef>Lectura Actual</th>
+              <td mat-cell *matCellDef="let reading">{{ reading.lecturaActual }} m³</td>
+            </ng-container>
+            <ng-container matColumnDef="consumo">
+              <th mat-header-cell *matHeaderCellDef>Consumo</th>
+              <td mat-cell *matCellDef="let reading">
+                <span class="consumption-value">{{ reading.consumo }} m³</span>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="observaciones">
+              <th mat-header-cell *matHeaderCellDef>Observaciones</th>
+              <td mat-cell *matCellDef="let reading">
+                <span class="observaciones-text">{{ reading.observaciones || 'Sin observaciones' }}</span>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="estado">
+              <th mat-header-cell *matHeaderCellDef>Estado</th>
+              <td mat-cell *matCellDef="let reading">
+                <span class="status-badge" 
+                      [style.background-color]="getStatusColor(reading.estado)">
+                  {{ getStatusText(reading.estado) }}
+                </span>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <ng-template #emptyTemplate>
+            <div class="empty-state">
+              <mat-icon>water_drop_outline</mat-icon>
+              <h3>No hay lecturas registradas</h3>
+              <p *ngIf="userRole() === 'cliente'">
+                Aún no tienes lecturas de agua registradas en el sistema.
+              </p>
+              <p *ngIf="userRole() !== 'cliente'">
+                No hay lecturas registradas en el sistema.
+              </p>
+            </div>
+          </ng-template>
+        </div>
+        <ng-template #loadingTemplate>
+          <div class="loading-container">
+            <p>Cargando lecturas...</p>
+          </div>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="userRole() === 'cliente' && readings().length > 0" class="summary-card">
+      <mat-card-header>
+        <mat-card-title>Resumen de Consumo</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <mat-icon>timeline</mat-icon>
+            <div>
+              <strong>Consumo Promedio</strong>
+              <span>{{ getAverageConsumption() }} m³/mes</span>
+            </div>
+          </div>
+          <div class="summary-item">
+            <mat-icon>attach_money</mat-icon>
+            <div>
+              <strong>Costo Promedio</strong>
+              <span>{{ formatCurrency(getAverageCost()) }}</span>
+            </div>
+          </div>
+          <div class="summary-item">
+            <mat-icon>calendar_month</mat-icon>
+            <div>
+              <strong>Última Lectura</strong>
+              <span>{{ getLastReadingDate() }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

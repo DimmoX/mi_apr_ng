@@ -1,0 +1,148 @@
+<mat-toolbar color="primary" class="main-toolbar">
+    <!-- Logo/Brand -->
+    <div class="brand">
+        <mat-icon class="brand-icon">water_drop</mat-icon>
+        <span class="brand-text">Mi APR</span>
+    </div>
+    <!-- Spacer -->
+    <span class="spacer"></span>
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav" *ngIf="!isMobile()">
+        <a mat-button 
+            *ngFor="let item of publicNavItems" 
+            [routerLink]="item.path"
+            routerLinkActive="active-link">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        {{ item.label }}
+        </a>
+    </nav>
+    <!-- User Actions -->
+    <div class="user-actions">
+        <!-- Not authenticated -->
+        <div *ngIf="!isAuthenticated()" class="auth-buttons">
+        <button mat-button (click)="navigateToLogin()">
+            <mat-icon>login</mat-icon>
+            Iniciar Sesión
+        </button>
+        <button mat-raised-button color="primary" (click)="navigateToRegister()">
+            <mat-icon>person_add</mat-icon>
+            Registrarse
+        </button>
+        </div>
+        <!-- Authenticated -->
+        <div *ngIf="isAuthenticated()" class="user-menu">
+        <button mat-button (click)="navigateToDashboard()">
+            <mat-icon>dashboard</mat-icon>
+            Dashboard
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="userMenu" class="user-menu-trigger">
+            <mat-icon>account_circle</mat-icon>
+            <mat-icon class="dropdown-indicator">expand_more</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu" class="enhanced-user-menu" xPosition="before">
+            <div class="user-menu-header">
+                <div class="user-avatar">
+                    <mat-icon>account_circle</mat-icon>
+                </div>
+                <div class="user-info">
+                    <div class="user-name">{{ currentUser()?.name }} {{ currentUser()?.lastname }}</div>
+                    <div class="user-role-badge">{{ getRoleDisplayName(currentUser()?.role || '') }}</div>
+                </div>
+            </div>
+            <mat-divider class="menu-divider"></mat-divider>
+            
+            <div class="menu-section">
+                <button mat-menu-item (click)="navigateToDashboard()" class="enhanced-menu-item">
+                    <mat-icon>dashboard</mat-icon>
+                    <span>Dashboard</span>
+                </button>
+                <button mat-menu-item (click)="navigateToProfile()" class="enhanced-menu-item">
+                    <mat-icon>person</mat-icon>
+                    <span>Mi Perfil</span>
+                </button>
+                <button mat-menu-item (click)="navigateToReadings()" class="enhanced-menu-item">
+                    <mat-icon>analytics</mat-icon>
+                    <span>Lecturas</span>
+                </button>
+            </div>
+            
+            <!-- Admin menu items -->
+            <div *ngIf="isAdmin()">
+                <mat-divider class="menu-divider"></mat-divider>
+                <div class="menu-section admin-section">
+                    <div class="admin-section-header">
+                        <mat-icon class="admin-icon">admin_panel_settings</mat-icon>
+                        <span class="admin-label">Administración</span>
+                    </div>
+                    <button mat-menu-item (click)="navigateToUserManagement()" class="enhanced-menu-item admin-item">
+                        <mat-icon>group</mat-icon>
+                        <span>Gestión de Usuarios</span>
+                    </button>
+                </div>
+            </div>
+            
+            <mat-divider class="menu-divider"></mat-divider>
+            <div class="menu-section logout-section">
+                <button mat-menu-item (click)="logout()" class="enhanced-menu-item logout-item">
+                    <mat-icon>logout</mat-icon>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </div>
+        </mat-menu>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button *ngIf="isMobile()" mat-icon-button [matMenuTriggerFor]="mobileMenu">
+        <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #mobileMenu="matMenu">
+        <a mat-menu-item 
+            *ngFor="let item of publicNavItems" 
+            [routerLink]="item.path">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <span>{{ item.label }}</span>
+        </a>
+        <!-- Authenticated user options -->
+        <div *ngIf="isAuthenticated()">
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="navigateToDashboard()">
+            <mat-icon>dashboard</mat-icon>
+            <span>Dashboard</span>
+            </button>
+            <button mat-menu-item (click)="navigateToProfile()">
+            <mat-icon>person</mat-icon>
+            <span>Mi Perfil</span>
+            </button>
+            <button mat-menu-item (click)="navigateToReadings()">
+            <mat-icon>analytics</mat-icon>
+            <span>Lecturas</span>
+            </button>
+            <!-- Admin options -->
+            <div *ngIf="isAdmin()">
+            <mat-divider></mat-divider>
+            <div class="menu-section-title">Administración</div>
+            <button mat-menu-item (click)="navigateToUserManagement()">
+                <mat-icon>group</mat-icon>
+                <span>Gestión de Usuarios</span>
+            </button>
+            </div>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Cerrar Sesión</span>
+            </button>
+        </div>
+        <!-- Non-authenticated user options -->
+        <div *ngIf="!isAuthenticated()">
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="navigateToLogin()">
+            <mat-icon>login</mat-icon>
+            <span>Iniciar Sesión</span>
+            </button>
+            <button mat-menu-item (click)="navigateToRegister()">
+            <mat-icon>person_add</mat-icon>
+            <span>Registrarse</span>
+            </button>
+        </div>
+        </mat-menu>
+    </div>
+</mat-toolbar>
