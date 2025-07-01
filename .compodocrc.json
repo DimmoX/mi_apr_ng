@@ -1,0 +1,17 @@
+{
+  "tsconfig": "./tsconfig.json",
+  "output": "./docs",
+  "name": "Mi APR - Sistema de Gestión de Agua Potable Rural",
+  "language": "es-ES",
+  "theme": "material",
+  "port": 8080,
+  "serve": true,
+  "silent": false,
+  "verbose": false,
+  "hideGenerator": false,
+  "disableCoverage": false,
+  "disablePrivate": false,
+  "disableProtected": false,
+  "disableInternal": false,
+  "disableLifeCycleHooks": false
+}
