@@ -14,13 +14,14 @@ Un sistema web moderno desarrollado en Angular 17 para la gestión de usuarios y
 - **Dashboard Dinámico**: Interfaz adaptativa según el rol del usuario
 - **Gestión de Usuarios**: Panel administrativo para CRUD de usuarios
 - **Perfil de Usuario**: Componente para editar información personal
-- **Lecturas de Agua**: Sistema completo de gestión de lecturas
+- **Lecturas de Agua**: Sistema completo de gestión de lecturas con selección de cliente y medidor
 - **Páginas Públicas**: Home, About, Services, Contact completamente funcionales
 - **Validaciones**: Teléfonos chilenos, contraseñas seguras, emails
 - **UI/UX Moderno**: Angular Material con diseño responsive
 - **Datos de Prueba**: Sistema inicializado con usuarios de ejemplo
 - **Notificaciones**: Sistema centralizado con SnackBar en esquina superior derecha
 - **Testing Suite**: 35 tests unitarios (Navbar: 15, Login: 20) - 100% success ✅
+- **Navegación Funcional**: Botones de volver operativos en todas las páginas
 
 ### 🔐 Sistema de Autenticación Completo
 - **Login**: Acceso seguro con validaciones
