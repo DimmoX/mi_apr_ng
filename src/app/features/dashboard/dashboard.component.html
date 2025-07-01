@@ -37,46 +37,5 @@
         </mat-card-content>
       </mat-card>
     </div>
-
-    <!-- Sección de prueba de notificaciones (solo para desarrollo) -->
-    <div class="notification-test-section" *ngIf="isAdmin()">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>
-            <mat-icon>notifications</mat-icon>
-            Prueba de Notificaciones
-          </mat-card-title>
-          <mat-card-subtitle>Prueba los diferentes tipos de notificaciones del sistema</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="notification-buttons">
-            <button mat-raised-button color="primary" (click)="testSuccessNotification()">
-              <mat-icon>check_circle</mat-icon>
-              Éxito
-            </button>
-            <button mat-raised-button color="warn" (click)="testErrorNotification()">
-              <mat-icon>error</mat-icon>
-              Error
-            </button>
-            <button mat-raised-button color="accent" (click)="testWarningNotification()">
-              <mat-icon>warning</mat-icon>
-              Advertencia
-            </button>
-            <button mat-raised-button (click)="testInfoNotification()">
-              <mat-icon>info</mat-icon>
-              Información
-            </button>
-            <button mat-stroked-button (click)="testGeneralNotification()">
-              <mat-icon>message</mat-icon>
-              General
-            </button>
-            <button mat-stroked-button color="primary" (click)="testLoadingNotification()">
-              <mat-icon>hourglass_empty</mat-icon>
-              Cargando
-            </button>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
   </div>
 </div>

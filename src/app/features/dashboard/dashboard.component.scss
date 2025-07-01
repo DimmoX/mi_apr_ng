@@ -92,38 +92,6 @@
     }
   }
 }
-// Sección de prueba de notificaciones
-.notification-test-section {
-  margin-top: 32px;
-  
-  mat-card {
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    
-    mat-card-header {
-      padding-bottom: 16px;
-      
-      mat-card-title {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--primary-color);
-        font-weight: 500;
-        
-        mat-icon {
-          font-size: 24px;
-          width: 24px;
-          height: 24px;
-        }
-      }
-      
-      mat-card-subtitle {
-        color: var(--text-secondary);
-        margin-top: 8px;
-      }
-    }
-  }
-}
 
 .notification-buttons {
   display: flex;
