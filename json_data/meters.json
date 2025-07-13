@@ -1,0 +1,47 @@
+[
+  {
+    "id": "MED-001",
+    "idUsuario": "client_001",
+    "marca": "Elster",
+    "modelo": "V100",
+    "numeroSerie": "123456",
+    "fechaInstalacion": "2025-01-15",
+    "estado": "activo"
+  },
+  {
+    "id": "MED-001B",
+    "idUsuario": "client_001",
+    "marca": "Sensus",
+    "modelo": "iPERL",
+    "numeroSerie": "123457",
+    "fechaInstalacion": "2025-01-20",
+    "estado": "activo"
+  },
+  {
+    "id": "MED-002",
+    "idUsuario": "client_002",
+    "marca": "Itron",
+    "modelo": "Aquadis+",
+    "numeroSerie": "654321",
+    "fechaInstalacion": "2025-02-20",
+    "estado": "activo"
+  },
+  {
+    "id": "MED-003",
+    "idUsuario": "client_003",
+    "marca": "Kamstrup",
+    "modelo": "Multical21",
+    "numeroSerie": "789012",
+    "fechaInstalacion": "2025-03-10",
+    "estado": "activo"
+  },
+  {
+    "id": "MED-003B",
+    "idUsuario": "client_003",
+    "marca": "Elster",
+    "modelo": "V200",
+    "numeroSerie": "789013",
+    "fechaInstalacion": "2025-03-15",
+    "estado": "activo"
+  }
+]

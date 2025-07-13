@@ -1,0 +1,62 @@
+[
+    {
+        "id": "admin_001",
+        "name": "Administrador",
+        "lastname": "Sistema",
+        "email": "admin@apr.cl",
+        "phone": "+56987654321",
+        "role": "admin",
+        "password": "admin123",
+        "createdAt": "2025-06-20T00:00:00.000Z"
+    },
+    {
+        "id": "func_001",
+        "name": "Funcionario",
+        "lastname": "Sistema",
+        "email": "funcionario@apr.cl",
+        "phone": "+56912345678",
+        "role": "funcionario",
+        "password": "funcionario123",
+        "createdAt": "2025-06-20T00:00:00.000Z"
+    },
+    {
+        "id": "tech_001",
+        "name": "Técnico",
+        "lastname": "Sistema",
+        "email": "tecnico@apr.cl",
+        "phone": "+56923456789",
+        "role": "tecnico",
+        "password": "tecnico123",
+        "createdAt": "2025-06-20T00:00:00.000Z"
+    },
+    {
+        "id": "client_001",
+        "name": "Cliente 1",
+        "lastname": "Sistema",
+        "email": "cliente1@apr.cl",
+        "phone": "+56934567890",
+        "role": "cliente",
+        "password": "cliente123",
+        "createdAt": "2025-06-20T00:00:00.000Z"
+    },
+    {
+        "id": "client_002",
+        "name": "Cliente 2",
+        "lastname": "Sistema",
+        "email": "cliente2@apr.cl",
+        "phone": "+56945678901",
+        "role": "cliente",
+        "password": "cliente123",
+        "createdAt": "2025-06-20T00:00:00.000Z"
+    },
+    {
+        "id": "client_003",
+        "name": "Cliente 3",
+        "lastname": "Sistema",
+        "email": "cliente3@apr.cl",
+        "phone": "+56956789012",
+        "role": "cliente",
+        "password": "cliente123",
+        "createdAt": "2025-06-20T00:00:00.000Z"
+    }
+]
