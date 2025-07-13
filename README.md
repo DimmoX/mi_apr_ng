@@ -5,7 +5,7 @@ Un sistema web moderno desarrollado en Angular 17 para la gestión de usuarios y
 ## 🚀 Características
 
 ### ✅ Implementado
-- **Autenticación y Autorización**: Sistema completo con JWT-like local storage
+- **Autenticación y Autorización**: Sistema seguro con JWT-like local storage
 - **Gestión de Roles**: 4 tipos de usuario (admin, funcionario, técnico, cliente)
 - **Registro y Login**: Formularios reactivos con validación avanzada
 - **Recuperación de Contraseña**: Sistema que muestra y permite copiar contraseñas
@@ -22,6 +22,9 @@ Un sistema web moderno desarrollado en Angular 17 para la gestión de usuarios y
 - **Notificaciones**: Sistema centralizado con SnackBar en esquina superior derecha
 - **Testing Suite**: 35 tests unitarios (Navbar: 15, Login: 20) - 100% success ✅
 - **Navegación Funcional**: Botones de volver operativos en todas las páginas
+- **Gestión de Medidores**: Sistema completo de solicitud y aprobación de medidores
+- **Documentación Automática**: Generada con Compodoc
+- **Arquitectura Escalable**: Componentes standalone de Angular 17
 
 ### 🔐 Sistema de Autenticación Completo
 - **Login**: Acceso seguro con validaciones
@@ -29,6 +32,69 @@ Un sistema web moderno desarrollado en Angular 17 para la gestión de usuarios y
 - **Registro Admin**: Los administradores pueden crear usuarios con cualquier rol
 - **Recuperación de Contraseña**: Búsqueda y copia de contraseñas al portapapeles
 - **Validaciones Completas**: Teléfono chileno, contraseñas seguras, emails únicos
+
+### 🔧 Sistema de Gestión de Medidores
+- **Solicitud de Medidores**: Los clientes pueden solicitar el registro de sus medidores
+- **Notificación Automática**: Alerta amarilla en dashboard para clientes sin medidores
+- **Modal Automático**: Se abre automáticamente en "Mis Medidores" si no tiene medidores
+- **Gestión Administrativa**: Personal autorizado (admin, funcionario, técnico) puede:
+  - Ver todas las solicitudes pendientes
+  - Aprobar solicitudes e instalar medidores
+  - Rechazar solicitudes con motivo
+  - Consultar historial de solicitudes procesadas
+- **Estados de Solicitud**: Pendiente, Aprobada, Rechazada
+- **Persistencia**: Todas las solicitudes se guardan en localStorage
+
+## 🎭 Sistema de Roles Detallado
+
+### **🔴 Administrador (admin)**
+**Acceso completo al sistema**
+- ✅ **Gestión de Usuarios**: CRUD completo de usuarios, asignación de roles
+- ✅ **Gestión de Medidores**: Aprobar/rechazar solicitudes, consultar historial
+- ✅ **Lecturas**: Ver todas las lecturas, registrar nuevas
+- ✅ **Dashboard**: Vista ejecutiva con métricas generales
+- ✅ **Configuración**: Acceso a todas las configuraciones del sistema
+- ✅ **Reportes**: Generar reportes completos del sistema
+
+### **🟡 Funcionario (funcionario)**
+**Gestión operativa y administrativa**
+- ✅ **Gestión de Medidores**: Aprobar/rechazar solicitudes de medidores
+- ✅ **Lecturas**: Ver todas las lecturas, registrar lecturas para clientes
+- ✅ **Dashboard**: Vista operativa con métricas del día
+- ✅ **Reportes**: Generar reportes operativos y de gestión
+- ✅ **Mantenimiento**: Coordinar tareas de mantenimiento
+- ❌ **Gestión de Usuarios**: No puede crear/eliminar usuarios
+
+### **🟢 Técnico (tecnico)**
+**Mantenimiento y operaciones técnicas**
+- ✅ **Gestión de Medidores**: Aprobar/rechazar solicitudes, instalar medidores
+- ✅ **Lecturas**: Ver todas las lecturas, registrar lecturas técnicas
+- ✅ **Dashboard**: Vista técnica con alertas de mantenimiento
+- ✅ **Mantenimiento**: Gestionar equipos y reparaciones
+- ✅ **Reportes Técnicos**: Generar reportes de estado de equipos
+- ❌ **Gestión de Usuarios**: No puede gestionar usuarios
+
+### **🔵 Cliente (cliente)**
+**Acceso personal y solicitudes**
+- ✅ **Mis Medidores**: Solicitar registro de medidores, ver estado
+- ✅ **Mis Lecturas**: Ver historial personal de consumo
+- ✅ **Mi Perfil**: Editar información personal básica
+- ✅ **Dashboard**: Vista personal con consumo y alertas
+- ✅ **Notificaciones**: Recibir alertas sobre su servicio
+- ❌ **Datos de Otros**: No puede ver información de otros usuarios
+
+### **Menú Contextual por Rol**
+**Todos los Usuarios Autenticados:**
+- Dashboard (vista principal)
+- Mi Perfil (edición de datos personales)
+- Lecturas (gestión de lecturas de agua)
+- Mis Medidores (solo clientes)
+
+**Personal Autorizado (Admin/Funcionario/Técnico):**
+- Gestión de Medidores (administración de solicitudes)
+
+**Administradores Adicional:**
+- Administración > Gestión de Usuarios (CRUD completo de usuarios)
 
 ## 🔑 Flujo de Recuperación de Contraseña
 
@@ -95,23 +161,46 @@ Un sistema web moderno desarrollado en Angular 17 para la gestión de usuarios y
 
 ---
 
-## 🛠️ Tecnologías
+## 🛠️ Stack Tecnológico
 
+### **Frontend Framework**
 - **Angular 17**: Framework principal con standalone components
 - **Angular Material**: Biblioteca de componentes UI
+- **Angular CDK**: Kit de desarrollo de componentes
 - **TypeScript**: Lenguaje de programación tipado
-- **SCSS**: Preprocesador CSS
-- **Reactive Forms**: Formularios reactivos de Angular
-- **RxJS**: Programación reactiva
-- **Signals**: Estado reactivo de Angular
+- **SCSS**: Preprocesador CSS con metodología BEM
 
-### 🧪 Testing Framework
+### **Estado y Reactivity**
+- **Angular Signals**: Estado reactivo nativo de Angular 17
+- **Reactive Forms**: Formularios reactivos de Angular
+- **RxJS**: Programación reactiva y observables
+
+### **UI/UX y Estilos**
+- **Tema Personalizado**: Basado en tonos azules profesionales (#1A61AE)
+- **Responsive Design**: Mobile-first con breakpoints CSS
+- **Animaciones**: Angular Animations API
+- **Iconografía**: Material Icons y Google Fonts
+
+### **🧪 Testing Framework**
 - **Jasmine**: Framework de testing unitario
 - **Karma**: Test runner para navegadores
-- **Chrome Headless**: Navegador para CI/CD
-- **Angular Testing Utilities**: Herramientas de testing de Angular
+- **Chrome Headless**: Navegador para CI/CD pipelines
+- **Angular Testing Utilities**: TestBed, ComponentFixture, etc.
+
+### **📚 Documentación**
+- **Compodoc**: Generación automática de documentación
+- **JSDoc**: Comentarios de código estándar
+- **Markdown**: README y documentación adicional
+
+### **🔧 Herramientas de Desarrollo**
+- **Angular CLI**: Herramientas de construcción y desarrollo
+- **ESLint**: Linter para calidad de código
+- **Prettier**: Formateador de código
+- **Git**: Control de versiones
 
 ## ⚡ Instalación y Ejecución
+
+### **🚀 Comandos Principales**
 
 ```bash
 # Instalar dependencias
@@ -119,21 +208,58 @@ npm install
 
 # Ejecutar en desarrollo
 ng serve
+# o alternativamente:
+npm start
 
-# Ejecutar tests
+# Ejecutar tests unitarios
 npm test
+
+# Ejecutar tests una sola vez (para CI/CD)
+npm test -- --no-watch --no-progress --browsers=ChromeHeadless
+
+# Ejecutar tests con cobertura
+ng test --code-coverage
 
 # Construir para producción
 ng build
+
+# Construir para desarrollo
+ng build --configuration development
 
 # Generar documentación con Compodoc
 npm run compodoc
 
 # Generar documentación y servir en vivo
 npm run compodoc:serve
+
+# Generar documentación con cobertura
+npm run compodoc:coverage
+
+# Lint del código
+ng lint
+
+# Formatear código
+npm run format
 ```
 
-La aplicación estará disponible en `http://localhost:4200`
+### **🌐 URLs de Acceso**
+
+- **Aplicación**: `http://localhost:4200`
+- **Documentación**: `http://localhost:8080` (con `compodoc:serve`)
+- **Tests**: Ejecutan en navegador automáticamente
+
+### **📋 Requisitos del Sistema**
+
+- **Node.js**: v18.0.0 o superior
+- **npm**: v9.0.0 o superior  
+- **Angular CLI**: v17.0.0 o superior
+
+```bash
+# Verificar versiones
+node --version
+npm --version
+ng version
+```
 
 ## 📚 Documentación del Proyecto
 
@@ -388,6 +514,93 @@ ng test --include="**/auth/**/*.spec.ts"
 - **📱 Tests responsive** para diferentes dispositivos
 - **🛡️ Tests de seguridad** para autenticación
 - **🔄 Tests de navegación** para flujos de usuario
+
+---
+
+## 🏗️ Arquitectura del Proyecto
+
+### **Estructura de Directorios**
+```
+src/
+├── app/
+│   ├── components/         # Componentes reutilizables
+│   │   ├── action-button/
+│   │   ├── feature-card/
+│   │   ├── navbar/
+│   │   └── page-header/
+│   ├── core/              # Servicios core, guards, modelos
+│   │   ├── guards/        # Guards de autenticación
+│   │   ├── models/        # Interfaces y tipos
+│   │   └── services/      # Servicios principales
+│   ├── features/          # Módulos de funcionalidades
+│   │   ├── auth/          # Autenticación (login, register, forgot-password)
+│   │   ├── dashboard/     # Panel principal
+│   │   ├── admin/         # Funciones administrativas
+│   │   ├── meters/        # Gestión de medidores
+│   │   └── public/        # Páginas públicas
+│   └── shared/            # Componentes y utilidades compartidas
+├── assets/                # Recursos estáticos
+└── styles.scss           # Estilos globales y tema
+```
+
+### **Componentes Principales**
+
+#### **🔄 Componentes Reutilizables**
+- **ActionButtonComponent**: Botón personalizable con estados y animaciones
+- **FeatureCardComponent**: Tarjeta para mostrar características del dashboard
+- **NavbarComponent**: Barra de navegación con menú contextual por roles
+- **PageHeaderComponent**: Encabezado estándar con título, subtítulo y botón volver
+
+#### **📱 Páginas Principales**
+- **HomeComponent**: Página de inicio con información del sistema
+- **DashboardComponent**: Panel principal personalizado por rol
+- **LoginComponent**: Autenticación con validaciones avanzadas
+- **RegisterComponent**: Registro público y administrativo
+- **ProfileComponent**: Gestión de perfil personal
+- **ReadingsComponent**: Gestión completa de lecturas de medidores
+- **UserManagementComponent**: Administración CRUD de usuarios
+- **MyMetersComponent**: Gestión de medidores para clientes
+- **MeterManagementComponent**: Administración de solicitudes de medidores
+
+### **⚙️ Servicios Core**
+
+#### **🔐 AuthService**
+- Login/logout con persistencia en localStorage
+- Verificación de roles y permisos
+- Guards de autenticación para rutas protegidas
+
+#### **👥 UserManagementService** 
+- CRUD completo de usuarios
+- Validación de datos únicos (email, teléfono)
+- Gestión de roles y permisos
+
+#### **✅ ValidationService**
+- Validación de teléfonos chilenos (+56 9 XXXX XXXX)
+- Validación de contraseñas seguras (8+ caracteres, mayúscula, número)
+- Validaciones personalizadas para formularios reactivos
+
+#### **🔔 NotificationService**
+- Sistema centralizado de notificaciones
+- Múltiples tipos: éxito, error, advertencia, información, carga
+- Posicionamiento en esquina superior derecha
+
+#### **🔧 MeterManagementService**
+- Gestión de solicitudes de medidores
+- Estados: Pendiente, Aprobada, Rechazada
+- Persistencia completa en localStorage
+
+---
+
+## 📄 Fuentes de Datos JSON
+
+El sistema obtiene datos iniciales a través de endpoints JSON públicos:
+
+### **🔗 URLs de Datos**
+- **Usuarios**: [https://dimmox.github.io/mi_apr_ng/json_data/users.json](https://dimmox.github.io/mi_apr_ng/json_data/users.json)
+- **Lecturas**: [https://dimmox.github.io/mi_apr_ng/json_data/readings.json](https://dimmox.github.io/mi_apr_ng/json_data/readings.json)
+- **Medidores**: [https://dimmox.github.io/mi_apr_ng/json_data/meters.json](https://dimmox.github.io/mi_apr_ng/json_data/meters.json)
+
+*Estos endpoints proporcionan los datos de prueba iniciales que se cargan automáticamente al inicializar la aplicación.*
 
 ---
 
