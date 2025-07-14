@@ -64,7 +64,7 @@ export class ForgotPasswordComponent {
       this.userManagementService.checkUsers();
       setTimeout(() => {
         this.userManagementService.findUserByEmail(email).subscribe(response => {
-          console.log('🔍 Search result:', response);
+          console.log('🔍 Resultado de búsqueda:', response);
           if (response.success && response.user) {
             this.passwordFound.set(true);
             this.userPassword.set(response.user.password);
@@ -84,6 +84,7 @@ export class ForgotPasswordComponent {
       this.markFormGroupTouched();
     }
   }
+  // Método para marcar todos los controles del formulario como tocados
   private markFormGroupTouched(): void {
     Object.keys(this.forgotPasswordForm.controls).forEach(key => {
       const control = this.forgotPasswordForm.get(key);
@@ -92,6 +93,7 @@ export class ForgotPasswordComponent {
       }
     });
   }
+  // Método para obtener el mensaje de error del email
   getEmailError(): string {
     const emailControl = this.forgotPasswordForm.get('email');
     if (emailControl?.hasError('required')) {
@@ -102,6 +104,7 @@ export class ForgotPasswordComponent {
     }
     return '';
   }
+  // Método para navegar al login
   navigateToLogin(): void {
     this.router.navigate(['/login']);
   }
@@ -117,6 +120,7 @@ export class ForgotPasswordComponent {
       this.fallbackCopyTextToClipboard(this.userPassword());
     }
   }
+  // Método de respaldo para copiar al portapapeles si Clipboard falla
   private fallbackCopyTextToClipboard(text: string): void {
     const textArea = document.createElement('textarea');
     textArea.value = text;

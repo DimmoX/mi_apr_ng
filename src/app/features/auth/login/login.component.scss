@@ -147,12 +147,44 @@
         box-shadow: 0 2px 8px rgba(26, 97, 174, 0.1);
       }
     }
+    
+    // Corregir el fondo del contenedor interno del input
+    .mat-mdc-form-field-infix {
+      background: transparent !important;
+      padding: 14px 0 14px 0;
+    }
+    
+    // Asegurar que el input tenga fondo transparente
+    .mat-mdc-input-element {
+      background: transparent !important;
+      color: #1A61AE;
+      font-weight: 500;
+      &::placeholder {
+        color: rgba(86, 144, 215, 0.7);
+        font-weight: 400;
+      }
+    }
+    
+    // Corregir cualquier fondo gris residual
+    .mat-mdc-text-field-wrapper {
+      background: transparent !important;
+    }
+    
+    .mdc-text-field {
+      background-color: transparent !important;
+    }
+    
     &.mat-focused {
       .mat-mdc-form-field-flex {
         background: white;
         box-shadow: 0 4px 12px rgba(26, 97, 174, 0.15);
       }
+      
+      .mat-mdc-form-field-infix {
+        background: transparent !important;
+      }
     }
+    
     .mat-mdc-form-field-outline {
       .mat-mdc-form-field-outline-start,
       .mat-mdc-form-field-outline-notch,
@@ -175,14 +207,6 @@
     }
     &.mat-focused .mat-mdc-form-field-label {
       color: #1A61AE;
-    }
-    .mat-mdc-input-element {
-      color: #1A61AE;
-      font-weight: 500;
-      &::placeholder {
-        color: rgba(86, 144, 215, 0.7);
-        font-weight: 400;
-      }
     }
     .mat-mdc-form-field-icon-suffix {
       color: #5690D7;

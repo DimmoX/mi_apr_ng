@@ -65,24 +65,28 @@
               <span>{{ currentUser()?.createdAt | date:'mediumDate' }}</span>
             </div>
           </div>
+          
+          <!-- Botones de acción dentro del formulario -->
+          <div class="form-actions">
+            <app-action-button
+              text="Cancelar"
+              icon="cancel"
+              variant="flat"
+              type="button"
+              (clicked)="goBack()">
+            </app-action-button>
+            <app-action-button
+              text="{{ isLoading ? 'Guardando...' : 'Guardar Cambios' }}"
+              icon="save"
+              color="primary"
+              type="submit"
+              [disabled]="profileForm.invalid"
+              [loading]="isLoading"
+              (clicked)="onSubmit()">
+            </app-action-button>
+          </div>
         </form>
       </mat-card-content>
-      <mat-card-actions class="card-actions">
-        <app-action-button
-          text="Cancelar"
-          icon="cancel"
-          variant="flat"
-          (clicked)="goBack()">
-        </app-action-button>
-        <app-action-button
-          text="{{ isLoading ? 'Guardando...' : 'Guardar Cambios' }}"
-          icon="save"
-          color="primary"
-          [disabled]="profileForm.invalid"
-          [loading]="isLoading"
-          (clicked)="onSubmit()">
-        </app-action-button>
-      </mat-card-actions>
     </mat-card>
     <mat-card class="info-card">
       <mat-card-header>

@@ -175,7 +175,7 @@
     }
   }
 }
-/* Mobile First: Base styles for mobile (up to 599px) */
+/* Móvil Primero: Estilos base para móvil (hasta 599px) */
 .contact-container {
   padding: 16px;
   min-height: calc(100vh - 140px);
@@ -255,7 +255,7 @@
     }
   }
 }
-/* Small Mobile: up to 479px */
+/* Móvil Pequeño: hasta 479px */
 @media (max-width: 479px) {
   .contact-container {
     padding: 12px;
@@ -276,7 +276,7 @@
     }
   }
 }
-/* Tablet: 600px to 959px */
+/* Tableta: 600px a 959px */
 @media (min-width: 600px) {
   .contact-container {
     padding: 24px;
@@ -357,7 +357,7 @@
     }
   }
 }
-/* Desktop: 960px and up */
+/* Escritorio: 960px en adelante */
 @media (min-width: 960px) {
   .contact-container {
     padding: 32px;
@@ -439,7 +439,7 @@
     }
   }
 }
-/* Large Desktop: 1280px and up */
+/* Escritorio Grande: 1280px en adelante */
 @media (min-width: 1280px) {
   .contact-container {
     max-width: 1400px;

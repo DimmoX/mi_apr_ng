@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard, guestGuard, adminGuard } from './core/guards/auth.guards';
+import { authGuard, guestGuard, adminGuard, tecnicoGuard } from './core/guards/auth.guards';
 import { MainLayoutComponent } from './shared/layout/main-layout/main-layout.component';
 export const routes: Routes = [
   {
@@ -76,6 +76,16 @@ export const routes: Routes = [
         path: 'readings',
         canActivate: [authGuard],
         loadComponent: () => import('./features/readings/readings.component').then(c => c.ReadingsComponent)
+      },
+      {
+        path: 'my-meters',
+        canActivate: [authGuard],
+        loadComponent: () => import('./features/meters/my-meters.component').then(c => c.MyMetersComponent)
+      },
+      {
+        path: 'meter-management',
+        canActivate: [tecnicoGuard],
+        loadComponent: () => import('./features/admin/meter-management/meter-management.component').then(c => c.MeterManagementComponent)
       },
       {
         path: 'admin',

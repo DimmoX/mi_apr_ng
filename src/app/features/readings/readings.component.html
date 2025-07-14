@@ -43,7 +43,8 @@
               <input matInput 
                      [matDatepicker]="picker" 
                      formControlName="date"
-                     readonly>
+                     readonly
+                     (click)="picker.open()">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -56,17 +57,20 @@
               <mat-icon matSuffix>speed</mat-icon>
             </mat-form-field>
           </div>
+          
+          <!-- Botón de submit dentro del formulario -->
+          <div class="form-actions">
+            <app-action-button
+              text="Registrar Lectura"
+              icon="add"
+              color="primary"
+              type="submit"
+              [disabled]="readingForm.invalid"
+              (clicked)="onSubmit()">
+            </app-action-button>
+          </div>
         </form>
       </mat-card-content>
-      <mat-card-actions class="card-actions">
-        <app-action-button
-          text="Registrar Lectura"
-          icon="add"
-          color="primary"
-          [disabled]="readingForm.invalid"
-          (clicked)="onSubmit()">
-        </app-action-button>
-      </mat-card-actions>
     </mat-card>
     <mat-card class="table-card">
       <mat-card-header>

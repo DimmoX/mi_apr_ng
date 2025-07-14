@@ -1,6 +1,6 @@
 import { Component, computed } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -28,16 +28,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
  * ```html
  * <app-navbar></app-navbar>
  * ```
- * 
- * @author Equipo de Desarrollo Mi APR
- * @since 1.0.0
  */
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [
     CommonModule,
-    RouterOutlet,
     RouterLink,
     RouterLinkActive,
     MatToolbarModule,
@@ -53,6 +49,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 export class NavbarComponent {
   currentUser = this.authService.currentUser;
   isAuthenticated = this.authService.isAuthenticated;
+  // Observable para detectar si la pantalla es móvil
   isMobile = computed(() => {
     return this.breakpointObserver.isMatched('(max-width: 768px)');
   });
@@ -66,6 +63,7 @@ export class NavbarComponent {
     private router: Router,
     private breakpointObserver: BreakpointObserver
   ) {}
+  // Métodos para navegación
   navigateToLogin(): void {
     this.router.navigate(['/login']);
   }
@@ -87,9 +85,11 @@ export class NavbarComponent {
   navigateToUserManagement(): void {
     this.router.navigate(['/admin/users']);
   }
+  // Método para verificar si el usuario es administrador
   isAdmin(): boolean {
     return this.currentUser()?.role === 'admin';
   }
+  // Método para cerrar sesión
   logout(): void {
     this.authService.logout();
   }

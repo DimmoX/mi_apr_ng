@@ -71,10 +71,10 @@ $light-blue-palette: (
 );
 $mi-apr-ng-primary: mat.define-palette($blue-palette, 500, 300, 700);
 $mi-apr-ng-accent: mat.define-palette($light-blue-palette, 600, 500, 700);
-// The warn palette is optional (defaults to red).
+// La paleta de advertencia es opcional (por defecto es roja).
 $mi-apr-ng-warn: mat.define-palette(mat.$red-palette);
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
+// Crear el objeto del tema. Un tema consiste en configuraciones para sistemas
+// de temas individuales como "color" o "tipografía".
 $mi-apr-ng-theme: mat.define-light-theme((
   color: (
     primary: $mi-apr-ng-primary,
@@ -84,72 +84,72 @@ $mi-apr-ng-theme: mat.define-light-theme((
   typography: mat.define-typography-config(),
   density: 0
 ));
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
+// Incluir estilos de tema para el núcleo y cada componente usado en tu aplicación.
+// Alternativamente, puedes importar e @include los mixins de tema para cada componente
+// que estés utilizando.
 @include mat.all-component-themes($mi-apr-ng-theme);
-// Blue-themed CSS Custom Properties (Professional Design)
+// Propiedades CSS personalizadas con tema azul (Diseño Profesional)
 :root {
-  // Primary blue colors (based on provided palette)
-  --water-primary: #1a61ae;        // Dark blue (main brand color)
-  --water-primary-light: #5690d7;  // Medium blue
-  --water-primary-dark: #155299;   // Darker blue
-  --water-primary-darker: #104284; // Deepest blue
-  // Surface blue colors (subtle backgrounds)
-  --water-surface: #f3f8ff;         // Very light blue surface
-  --water-surface-light: #f8fbff;   // Almost white with blue hint
-  --water-ripple: #e6f1ff;          // Light blue for ripples
-  // Depth colors (blue hierarchy)
-  --water-shallow: #91beff;         // Light blue (shallow)
-  --water-medium: #5690d7;          // Medium blue
-  --water-deep: #3878c2;           // Dark blue
-  --water-abyss: #1a61ae;          // Deepest blue
-  // Complementary colors
-  --foam-white: #ffffff;            // Pure white
-  --sea-foam: #f0f4ff;             // Very light blue-white tint
-  --ocean-mist: #f3f8ff;           // Light blue mist
-  // Text colors (excellent contrast ratios)
-  --text-on-water: #ffffff;        // White text on dark blue
-  --text-on-light-water: #104284;  // Deepest blue on light backgrounds
-  --text-on-surface: #1a61ae;      // Dark blue on white/light surfaces
-  --text-primary: #1a1a1a;         // Very dark gray for main text
-  --text-secondary: #2c2c2c;       // Darker gray for better visibility
-  --text-muted: #4a4a4a;           // Medium-dark gray for muted text
-  // Gradients (blue professional)
+  // Colores azules primarios (basados en la paleta proporcionada)
+  --water-primary: #1a61ae;        // Azul oscuro (color principal de marca)
+  --water-primary-light: #5690d7;  // Azul medio
+  --water-primary-dark: #155299;   // Azul más oscuro
+  --water-primary-darker: #104284; // Azul más profundo
+  // Colores azules de superficie (fondos sutiles)
+  --water-surface: #f3f8ff;         // Superficie azul muy claro
+  --water-surface-light: #f8fbff;   // Casi blanco con tono azul
+  --water-ripple: #e6f1ff;          // Azul claro para ondas
+  // Colores de profundidad (jerarquía azul)
+  --water-shallow: #91beff;         // Azul claro (superficial)
+  --water-medium: #5690d7;          // Azul medio
+  --water-deep: #3878c2;           // Azul oscuro
+  --water-abyss: #1a61ae;          // Azul más profundo
+  // Colores complementarios
+  --foam-white: #ffffff;            // Blanco puro
+  --sea-foam: #f0f4ff;             // Tinte azul-blanco muy claro
+  --ocean-mist: #f3f8ff;           // Niebla azul claro
+  // Colores de texto (excelentes ratios de contraste)
+  --text-on-water: #ffffff;        // Texto blanco sobre azul oscuro
+  --text-on-light-water: #104284;  // Azul más profundo sobre fondos claros
+  --text-on-surface: #1a61ae;      // Azul oscuro sobre superficies blancas/claras
+  --text-primary: #1a1a1a;         // Gris muy oscuro para texto principal
+  --text-secondary: #2c2c2c;       // Gris más oscuro para mejor visibilidad
+  --text-muted: #4a4a4a;           // Gris medio-oscuro para texto silenciado
+  // Degradados (azul profesional)
   --water-gradient: linear-gradient(135deg, #1a61ae 0%, #155299 50%, #104284 100%);
   --ocean-gradient: linear-gradient(180deg, #f3f8ff 0%, #91beff 25%, #5690d7 75%, #1a61ae 100%);
   --light-water-gradient: linear-gradient(135deg, #f8fbff 0%, #f3f8ff 50%, #e6f1ff 100%);
-  // Shadows (blue-themed)
+  // Sombras (con tema azul)
   --water-shadow: 0 4px 20px rgba(26, 97, 174, 0.15);
   --water-shadow-hover: 0 8px 32px rgba(26, 97, 174, 0.25);
   --aqua-shadow: 0 4px 20px rgba(86, 144, 215, 0.15);
   --deep-water-shadow: 0 8px 32px rgba(16, 66, 132, 0.3);
   --subtle-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  // Background colors (optimal readability)
-  --bg-primary: #fafafa;           // Light gray background
-  --bg-surface: #ffffff;           // Pure white surface
-  --bg-water-light: #f3f8ff;      // Very light blue background
-  --bg-accent: #f8fbff;            // Accent background
-  // Interactive states (accessible)
-  --interactive-hover: #e6f1ff;    // Light blue hover
-  --interactive-active: #cce3ff;   // Medium blue active
-  --interactive-focus: #5690d7;    // Blue focus ring
-  // Status colors (WCAG AA compliant)
-  --success-color: #2e7d32;        // Dark green
-  --warning-color: #f57c00;        // Dark orange
-  --error-color: #d32f2f;          // Dark red
-  --info-color: #5690d7;           // Blue
+  // Colores de fondo (legibilidad óptima)
+  --bg-primary: #fafafa;           // Fondo gris claro
+  --bg-surface: #ffffff;           // Superficie blanco puro
+  --bg-water-light: #f3f8ff;      // Fondo azul muy claro
+  --bg-accent: #f8fbff;            // Fondo de acento
+  // Estados interactivos (accesibles)
+  --interactive-hover: #e6f1ff;    // Azul claro al pasar el mouse
+  --interactive-active: #cce3ff;   // Azul medio activo
+  --interactive-focus: #5690d7;    // Anillo de enfoque azul
+  // Colores de estado (compatible con WCAG AA)
+  --success-color: #2e7d32;        // Verde oscuro
+  --warning-color: #f57c00;        // Naranja oscuro
+  --error-color: #d32f2f;          // Rojo oscuro
+  --info-color: #5690d7;           // Azul
   
-  // RGB values for alpha blending
-  --water-primary-rgb: 26, 97, 174;     // --water-primary RGB
-  --water-accent-rgb: 86, 144, 215;     // --water-primary-light RGB
-  --water-accent: #5690d7;              // Water accent color
-  --water-accent-dark: #3878c2;         // Darker water accent
+  // Valores RGB para mezcla alpha
+  --water-primary-rgb: 26, 97, 174;     // RGB de --water-primary
+  --water-accent-rgb: 86, 144, 215;     // RGB de --water-primary-light
+  --water-accent: #5690d7;              // Color de acento agua
+  --water-accent-dark: #3878c2;         // Acento agua más oscuro
 }
-/* You can add global styles to this file, and also import other style files */
+/* Puedes agregar estilos globales a este archivo, y también importar otros archivos de estilo */
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-// Global Snackbar Styles - Positioned at top-right
+// Estilos globales de Snackbar - Posicionados en la esquina superior derecha
 .custom-snackbar {
   position: fixed !important;
   top: 20px !important;
@@ -267,7 +267,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
-// Animation for snackbar entrance
+// Animación para la entrada del snackbar
 .custom-snackbar {
   animation: slideInFromRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -287,7 +287,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
-// Responsive adjustments for mobile
+// Ajustes responsivos para móvil
 @media (max-width: 768px) {
   .custom-snackbar {
     top: 10px !important;

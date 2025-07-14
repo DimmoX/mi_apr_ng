@@ -28,6 +28,13 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
   margin-bottom: 32px;
+  
+  // Asegurar que todas las tarjetas tengan la misma altura
+  app-feature-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 }
 .action-card {
   cursor: pointer;
@@ -69,26 +76,300 @@
     color: var(--water-primary-light);
   }
 }
-.role-info {
-  max-width: 600px;
+// Estilos de la Sección de Perfil
+.user-profile-section {
+  max-width: 800px;
   margin: 0 auto;
-  mat-card {
-    border-radius: 12px;
+
+  .profile-card {
+    border-radius: 16px;
     background: var(--surface-color);
-    border: 2px solid var(--water-surface);
-    box-shadow: var(--surface-shadow);
-  }
-  .info-row {
-    display: flex;
-    margin-bottom: 12px;
-    strong {
-      min-width: 100px;
-      margin-right: 16px;
-      color: var(--water-primary);
-      font-weight: 600;
+    border: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     }
-    &:last-child {
-      margin-bottom: 0;
+  }
+
+  .profile-header {
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    background: linear-gradient(135deg, var(--water-primary) 0%, var(--water-primary-light) 100%);
+    color: white;
+    position: relative;
+
+    .avatar-container {
+      position: relative;
+      margin-right: 20px;
+
+      .user-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+
+        mat-icon {
+          font-size: 36px;
+          width: 36px;
+          height: 36px;
+          color: white;
+        }
+      }
+
+      .status-indicator {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 3px solid white;
+
+        &.status-online {
+          background-color: #4caf50;
+        }
+        &.status-offline {
+          background-color: #f44336;
+        }
+        &.status-away {
+          background-color: #ff9800;
+        }
+      }
+    }
+
+    .user-basic-info {
+      flex: 1;
+
+      .user-name {
+        margin: 0 0 8px 0;
+        font-size: 1.8rem;
+        font-weight: 600;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .user-role-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 12px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+
+        mat-icon {
+          font-size: 16px;
+          width: 16px;
+          height: 16px;
+          margin-right: 6px;
+        }
+
+        &.role-admin {
+          background: rgba(244, 67, 54, 0.2);
+        }
+        &.role-funcionario {
+          background: rgba(63, 81, 181, 0.2);
+        }
+        &.role-tecnico {
+          background: rgba(76, 175, 80, 0.2);
+        }
+        &.role-cliente {
+          background: rgba(255, 152, 0, 0.2);
+        }
+      }
+
+      .user-since {
+        margin: 0;
+        font-size: 0.85rem;
+        opacity: 0.9;
+      }
+    }
+
+    .profile-actions {
+      .profile-menu-btn {
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+  }
+
+  .profile-divider {
+    margin: 0;
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .profile-details {
+    padding: 24px;
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+
+      .detail-item {
+        display: flex;
+        align-items: center;
+        padding: 16px;
+        border-radius: 12px;
+        background: var(--water-surface-light);
+        border: 1px solid var(--water-surface);
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+          border-color: var(--water-primary-light);
+        }
+
+        .detail-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
+          background: var(--water-primary);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 16px;
+          flex-shrink: 0;
+
+          mat-icon {
+            color: white;
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        .detail-content {
+          flex: 1;
+
+          label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+          }
+
+          span {
+            font-size: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+
+            &.meter-count,
+            &.reading-count {
+              color: var(--water-primary);
+              font-size: 1.2rem;
+            }
+
+            &.access-level {
+              color: var(--water-secondary);
+            }
+
+            &.last-access {
+              color: var(--accent-color);
+            }
+          }
+        }
+      }
+    }
+
+    .quick-stats {
+      h3 {
+        margin: 0 0 16px 0;
+        color: var(--text-primary);
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+
+        .stat-card {
+          padding: 20px;
+          border-radius: 12px;
+          background: linear-gradient(135deg, var(--water-primary) 0%, var(--water-primary-light) 100%);
+          color: white;
+          display: flex;
+          align-items: center;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease;
+
+          &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+          }
+
+          &.consumption {
+            background: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%);
+          }
+
+          &.payment {
+            background: linear-gradient(135deg, #ff9800 0%, #ffb74d 100%);
+          }
+
+          &.readings {
+            background: linear-gradient(135deg, #4caf50 0%, #81c784 100%);
+          }
+
+          .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            backdrop-filter: blur(10px);
+
+            mat-icon {
+              font-size: 28px;
+              width: 28px;
+              height: 28px;
+              color: white;
+            }
+          }
+
+          .stat-info {
+            flex: 1;
+
+            .stat-value {
+              display: block;
+              font-size: 2rem;
+              font-weight: 700;
+              line-height: 1;
+              margin-bottom: 4px;
+            }
+
+            .stat-label {
+              font-size: 0.9rem;
+              opacity: 0.9;
+              font-weight: 500;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -130,7 +411,7 @@
   }
 }
 
-/* Mobile First: Base styles for mobile (up to 599px) */
+/* Móvil Primero: Estilos base para móvil (hasta 599px) */
 .dashboard-content {
   padding: 16px;
 }
@@ -178,7 +459,7 @@
     }
   }
 }
-/* Small Mobile: up to 479px */
+/* Móvil Pequeño: hasta 479px */
 @media (max-width: 479px) {
   .dashboard-content {
     padding: 12px;
@@ -203,7 +484,7 @@
     }
   }
 }
-/* Tablet: 600px to 959px */
+/* Tableta: 600px a 959px */
 @media (min-width: 600px) {
   .dashboard-content {
     padding: 20px;
@@ -245,7 +526,7 @@
     }
   }
 }
-/* Desktop: 960px and up */
+/* Escritorio: 960px en adelante */
 @media (min-width: 960px) {
   .dashboard-content {
     padding: 24px;
@@ -285,7 +566,7 @@
     }
   }
 }
-/* Large Desktop: 1280px and up */
+/* Escritorio Grande: 1280px en adelante */
 @media (min-width: 1280px) {
   .dashboard-content {
     padding: 32px;
@@ -313,5 +594,106 @@
     .action-title {
       font-size: 1.4rem;
     }
+  }
+}
+
+// Notificación flotante para clientes sin medidores
+.floating-meter-alert {
+  position: fixed;
+  top: 80px; // Debajo de la barra de navegación
+  right: 20px;
+  width: 320px;
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  border: 1px solid #f39c12;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(243, 156, 18, 0.3);
+  z-index: 1000;
+  overflow: hidden;
+  animation: slideInRight 0.5s ease-out;
+
+  .alert-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 12px 20px;
+    border-bottom: 1px solid rgba(243, 156, 18, 0.2);
+
+    mat-icon {
+      color: #f39c12;
+      margin-right: 8px;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    .alert-title {
+      font-weight: 600;
+      color: #b7791f;
+      font-size: 14px;
+      flex: 1;
+    }
+
+    .close-btn {
+      width: 24px;
+      height: 24px;
+      line-height: 1;
+
+      mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+        margin: 0;
+        color: #b7791f;
+      }
+
+      &:hover {
+        background-color: rgba(243, 156, 18, 0.1);
+      }
+    }
+  }
+
+  .alert-content {
+    padding: 12px 20px 20px 20px;
+
+    p {
+      margin: 0 0 16px 0;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #8d6e2f;
+    }
+
+    .action-btn {
+      width: 100%;
+      height: 36px;
+      font-size: 13px;
+      font-weight: 500;
+      
+      mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+        margin-right: 6px;
+      }
+    }
+  }
+
+  // Animación de entrada
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  // Responsive
+  @media (max-width: 768px) {
+    top: 70px;
+    right: 16px;
+    left: 16px;
+    width: auto;
   }
 }

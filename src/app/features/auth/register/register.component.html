@@ -110,21 +110,22 @@
               {{ getConfirmPasswordError() }}
             </div>
           </div>
+          
+          <!-- Botón de submit dentro del formulario -->
+          <div class="register-form-actions">
+            <button mat-raised-button 
+                    color="primary" 
+                    type="submit"
+                    [disabled]="isLoading()"
+                    class="full-width register-button">
+              <span *ngIf="!isLoading()">Crear Cuenta</span>
+              <mat-spinner *ngIf="isLoading()" diameter="20"></mat-spinner>
+            </button>
+          </div>
         </form>
       </div>
     </mat-card-content>
     <mat-card-actions class="register-actions">
-      <div class="register-form-actions">
-        <button mat-raised-button 
-                color="primary" 
-                type="submit"
-                [disabled]="isLoading()"
-                (click)="onSubmit()"
-                class="full-width register-button">
-          <span *ngIf="!isLoading()">Crear Cuenta</span>
-          <mat-spinner *ngIf="isLoading()" diameter="20"></mat-spinner>
-        </button>
-      </div>
       <div class="login-link">
         <span>¿Ya tienes cuenta? </span>
         <button mat-button 

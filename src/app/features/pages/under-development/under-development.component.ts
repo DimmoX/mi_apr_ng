@@ -20,6 +20,12 @@ import { ActionButtonComponent } from '../../../components/action-button/action-
   templateUrl: './under-development.component.html',
   styleUrl: './under-development.component.scss'
 })
+
+/**
+ * Componente que representa una página en desarrollo.
+ * Permite al usuario navegar de vuelta al dashboard o a la página de inicio.
+ * Incluye un encabezado de página y botones de acción para la navegación.
+ */
 export class UnderDevelopmentComponent {
   constructor(private router: Router) {}
   goBack(): void {

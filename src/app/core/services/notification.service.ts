@@ -18,9 +18,6 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
  * this.notificationService.showWarning('Advertencia importante');
  * this.notificationService.showInfo('Información relevante');
  * ```
- * 
- * @author Equipo de Desarrollo Mi APR
- * @since 1.0.0
  */
 @Injectable({
   providedIn: 'root'

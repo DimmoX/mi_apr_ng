@@ -21,9 +21,6 @@ import { User, LoginCredentials, UserRole } from '../models/user.model';
  *   }
  * }
  * ```
- * 
- * @author Equipo de Desarrollo Mi APR
- * @since 1.0.0
  */
 @Injectable({
   providedIn: 'root'
@@ -47,22 +44,22 @@ export class AuthService {
   /** Observable del usuario actual para compatibilidad con RxJS */
   currentUser$ = this.currentUserSubject.asObservable();
   
-  /** Signal computed que indica si hay un usuario autenticado */
+  /** computed que indica si hay un usuario autenticado */
   isAuthenticated = computed(() => this.currentUser() !== null);
   
-  /** Signal computed que retorna el rol del usuario actual */
+  /** computed que retorna el rol del usuario actual */
   userRole = computed(() => this.currentUser()?.role || null);
   
-  /** Signal computed que indica si el usuario actual es administrador */
+  /** computed que indica si el usuario actual es administrador */
   isAdmin = computed(() => this.userRole() === 'admin');
   
-  /** Signal computed que indica si el usuario actual es funcionario */
+  /** computed que indica si el usuario actual es funcionario */
   isFuncionario = computed(() => this.userRole() === 'funcionario');
-  
-  /** Signal computed que indica si el usuario actual es técnico */
+
+  /** computed que indica si el usuario actual es técnico */
   isTecnico = computed(() => this.userRole() === 'tecnico');
-  
-  /** Signal computed que indica si el usuario actual es cliente */
+
+  /** computed que indica si el usuario actual es cliente */
   isCliente = computed(() => this.userRole() === 'cliente');
 
   constructor(private router: Router) {
@@ -86,7 +83,7 @@ export class AuthService {
     }
   }
   /**
-   * Authenticate user with email and password
+   * Verifica si el usuario está autenticado
    */
   login(credentials: LoginCredentials): Observable<{ success: boolean; user?: User; error?: string }> {
     return new Observable(observer => {
@@ -109,7 +106,7 @@ export class AuthService {
     });
   }
   /**
-   * Register a new user
+   * Registra un nuevo usuario en el sistema
    */
   register(userData: Omit<User, 'id' | 'createdAt'>): Observable<{ success: boolean; user?: User; error?: string }> {
     return new Observable(observer => {
@@ -136,14 +133,14 @@ export class AuthService {
     });
   }
   /**
-   * Logout current user
+   * Cierra la sesión del usuario actual
    */
   logout(): void {
     this.clearSession();
     this.router.navigate(['/login']);
   }
   /**
-   * Update current user profile
+   * Actualiza el perfil del usuario actual
    */
   updateProfile(updates: Partial<User>): Observable<{ success: boolean; user?: User; error?: string }> {
     return new Observable(observer => {
@@ -173,20 +170,20 @@ export class AuthService {
     });
   }
   /**
-   * Check if user has permission for a specific role
+   * Verifica si el usuario tiene un rol específico
    */
   hasRole(role: UserRole): boolean {
     return this.userRole() === role;
   }
   /**
-   * Check if user has any of the specified roles
+   * Verifica si el usuario tiene alguno de los roles especificados
    */
   hasAnyRole(roles: UserRole[]): boolean {
     const currentRole = this.userRole();
     return currentRole ? roles.includes(currentRole) : false;
   }
   /**
-   * Get all users (admin only)
+   * Obtener todos los usuarios
    */
   getAllUsers(): User[] {
     try {
@@ -198,7 +195,7 @@ export class AuthService {
     }
   }
   /**
-   * Set current user and update storage (now public for profile updates)
+   * Establece el usuario actual y actualiza el almacenamiento
    */
   setCurrentUser(user: User): void {
     this.currentUserSignal.set(user);
@@ -206,7 +203,7 @@ export class AuthService {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(user));
   }
   /**
-   * Get user role display name
+   * Obtiene el nombre para mostrar del rol del usuario actual
    */
   getUserRoleDisplayName(): string {
     const role = this.userRole();
@@ -219,7 +216,7 @@ export class AuthService {
     return roleNames[role || ''] || role || '';
   }
   /**
-   * Clear user session
+   * Limpia la sesión del usuario
    */
   private clearSession(): void {
     this.currentUserSignal.set(null);
@@ -227,13 +224,13 @@ export class AuthService {
     localStorage.removeItem(this.STORAGE_KEY);
   }
   /**
-   * Save users array to localStorage
+   * Guarda el array de usuarios en localStorage
    */
   private saveUsers(users: User[]): void {
     localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
   }
   /**
-   * Generate unique user ID
+   * Genera un ID de usuario único
    */
   private generateUserId(): string {
     const timestamp = Date.now().toString();

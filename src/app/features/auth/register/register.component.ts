@@ -30,6 +30,27 @@ import { ValidationService } from '../../../core/services/validation.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
+/**
+ * Componente de registro de usuario
+ * Permite a los usuarios registrarse con nombre, apellido, email, teléfono y contraseña.
+ * Incluye validación de formularios y muestra mensajes de error.
+ * Utiliza Reactive Forms para la gestión de datos y validaciones.
+ * Muestra un indicador de carga mientras se procesa el registro.
+ * Permite la navegación al login si el usuario ya tiene una cuenta.
+ * Incluye validación de fortaleza de contraseña y confirmación de contraseña.
+ * Muestra mensajes de error específicos para cada campo del formulario.
+ * Permite copiar la contraseña generada al portapapeles.
+ * Incluye un botón para mostrar/ocultar la contraseña y su confirmación.
+ * Navega al dashboard al completar el registro exitosamente.
+ * Maneja errores del sistema y muestra notificaciones al usuario.
+ * Utiliza servicios de autenticación y validación para interactuar con la API.
+ * Incluye un servicio de notificación para mostrar mensajes al usuario.
+ * Permite la personalización de la visibilidad de los campos de contraseña.
+ * Incluye un servicio de gestión de usuarios para interactuar con la API.
+ * Permite la validación de números de teléfono y correos electrónicos.
+ * Utiliza un servicio de validación para verificar la fortaleza de la contraseña.
+ * Incluye un servicio de autenticación para registrar nuevos usuarios.
+ */
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   isLoading = signal(false);
@@ -48,13 +69,14 @@ export class RegisterComponent implements OnInit {
   }
   ngOnInit(): void {
   }
+  // Método para enviar el formulario de registro
   private createForm(): FormGroup {
     return this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       lastname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, this.phoneValidator.bind(this)]],
-      role: ['cliente', [Validators.required]],
+      role: ['cliente', [Validators.required]], // Rol por defecto
       password: ['', [Validators.required, this.passwordValidator.bind(this)]],
       confirmPassword: ['', [Validators.required]]
     }, { validators: this.passwordMatchValidator });

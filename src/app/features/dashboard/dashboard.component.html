@@ -1,4 +1,22 @@
 <div class="dashboard-container">
+  <!-- Notificación flotante para clientes sin medidores -->
+  <div class="floating-meter-alert" *ngIf="shouldShowMeterAlert()">
+    <div class="alert-header">
+      <mat-icon>warning</mat-icon>
+      <span class="alert-title">¡Solicita tu medidor!</span>
+      <button mat-icon-button class="close-btn" (click)="dismissMeterAlert()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="alert-content">
+      <p>Para comenzar a usar el sistema, necesitas registrar tu medidor de agua.</p>
+      <button mat-raised-button color="primary" class="action-btn" (click)="navigateToMyMeters()">
+        <mat-icon>device_hub</mat-icon>
+        Mis Medidores
+      </button>
+    </div>
+  </div>
+
   <div class="dashboard-content">
     <div class="welcome-section">
       <h1>{{ greeting() }}</h1>
@@ -16,25 +34,140 @@
         (clicked)="navigateTo(item.route)">
       </app-feature-card>
     </div>
-    <div class="role-info" *ngIf="currentUser()">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>Información de Usuario</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="info-row">
-            <strong>Nombre:</strong> {{ currentUser()?.name }} {{ currentUser()?.lastname }}
+    <div class="user-profile-section" *ngIf="currentUser()">
+      <mat-card class="profile-card">
+        <div class="profile-header">
+          <div class="avatar-container">
+            <div class="user-avatar">
+              <mat-icon>{{ getUserAvatarIcon() }}</mat-icon>
+            </div>
+            <div class="status-indicator" [ngClass]="'status-' + getUserStatusClass()"></div>
           </div>
-          <div class="info-row">
-            <strong>Email:</strong> {{ currentUser()?.email }}
+          <div class="user-basic-info">
+            <h2 class="user-name">{{ currentUser()?.name }} {{ currentUser()?.lastname }}</h2>
+            <div class="user-role-badge" [ngClass]="'role-' + userRole()">
+              <mat-icon>{{ getRoleIcon() }}</mat-icon>
+              <span>{{ getRoleDisplayName(userRole() || '') }}</span>
+            </div>
+            <p class="user-since">Miembro desde {{ getFormattedDate(currentUser()?.createdAt) }}</p>
           </div>
-          <div class="info-row">
-            <strong>Teléfono:</strong> {{ currentUser()?.phone }}
+          <div class="profile-actions">
+            <button mat-icon-button class="profile-menu-btn" [matMenuTriggerFor]="profileMenu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #profileMenu="matMenu">
+              <button mat-menu-item (click)="navigateTo('/profile')">
+                <mat-icon>edit</mat-icon>
+                Editar Perfil
+              </button>
+              <button mat-menu-item (click)="navigateTo('/profile')">
+                <mat-icon>settings</mat-icon>
+                Configuración
+              </button>
+            </mat-menu>
           </div>
-          <div class="info-row">
-            <strong>Rol:</strong> {{ getRoleDisplayName(userRole() || '') }}
+        </div>
+
+        <mat-divider class="profile-divider"></mat-divider>
+
+        <div class="profile-details">
+          <div class="detail-grid">
+            <div class="detail-item">
+              <div class="detail-icon">
+                <mat-icon>email</mat-icon>
+              </div>
+              <div class="detail-content">
+                <label>Correo Electrónico</label>
+                <span>{{ currentUser()?.email }}</span>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-icon">
+                <mat-icon>phone</mat-icon>
+              </div>
+              <div class="detail-content">
+                <label>Teléfono</label>
+                <span>{{ currentUser()?.phone }}</span>
+              </div>
+            </div>
+
+            <div class="detail-item" *ngIf="userRole() === 'cliente'">
+              <div class="detail-icon">
+                <mat-icon>water_drop</mat-icon>
+              </div>
+              <div class="detail-content">
+                <label>Medidores Activos</label>
+                <span class="meter-count">{{ getUserMeterCount() }}</span>
+              </div>
+            </div>
+
+            <div class="detail-item" *ngIf="userRole() === 'cliente'">
+              <div class="detail-icon">
+                <mat-icon>insights</mat-icon>
+              </div>
+              <div class="detail-content">
+                <label>Últimas Lecturas</label>
+                <span class="reading-count">{{ getUserReadingCount() }}</span>
+              </div>
+            </div>
+
+            <div class="detail-item" *ngIf="isAdminOrFuncionario()">
+              <div class="detail-icon">
+                <mat-icon>admin_panel_settings</mat-icon>
+              </div>
+              <div class="detail-content">
+                <label>Nivel de Acceso</label>
+                <span class="access-level">{{ getAccessLevelText() }}</span>
+              </div>
+            </div>
+
+            <div class="detail-item" *ngIf="isAdminOrFuncionario()">
+              <div class="detail-icon">
+                <mat-icon>schedule</mat-icon>
+              </div>
+              <div class="detail-content">
+                <label>Último Acceso</label>
+                <span class="last-access">{{ getLastAccessText() }}</span>
+              </div>
+            </div>
           </div>
-        </mat-card-content>
+
+          <div class="quick-stats" *ngIf="userRole() === 'cliente'">
+            <h3>Resumen Rápido</h3>
+            <div class="stats-grid">
+              <div class="stat-card consumption">
+                <div class="stat-icon">
+                  <mat-icon>water</mat-icon>
+                </div>
+                <div class="stat-info">
+                  <span class="stat-value">{{ getCurrentMonthConsumption() }}</span>
+                  <span class="stat-label">m³ este mes</span>
+                </div>
+              </div>
+
+              <div class="stat-card payment">
+                <div class="stat-icon">
+                  <mat-icon>payment</mat-icon>
+                </div>
+                <div class="stat-info">
+                  <span class="stat-value">{{ getPendingPayments() }}</span>
+                  <span class="stat-label">pagos pendientes</span>
+                </div>
+              </div>
+
+              <div class="stat-card readings">
+                <div class="stat-icon">
+                  <mat-icon>timeline</mat-icon>
+                </div>
+                <div class="stat-info">
+                  <span class="stat-value">{{ getReadingsThisYear() }}</span>
+                  <span class="stat-label">lecturas este año</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </mat-card>
     </div>
   </div>

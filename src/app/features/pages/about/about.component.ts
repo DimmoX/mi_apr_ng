@@ -7,5 +7,11 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss'
 })
+
+/**
+ * Componente que muestra información sobre la aplicación.
+ * Incluye detalles sobre el equipo de desarrollo, tecnologías utilizadas y enlaces a redes sociales.
+ * Utiliza iconos de Angular Material para mejorar la presentación visual.
+ */
 export class AboutComponent {
 }

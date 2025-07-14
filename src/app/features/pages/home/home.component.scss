@@ -3,7 +3,7 @@
   margin: 0;
   background: var(--light-water-gradient);
   min-height: calc(100vh - 64px); 
-  /* Mobile First: Base styles for mobile (up to 599px) */
+  /* Móvil Primero: Estilos base para móvil (hasta 599px) */
   @media (max-width: 599px) {
     min-height: calc(100vh - 56px);
   }
@@ -281,7 +281,7 @@
     }
   }
 }
-/* Small Mobile: up to 479px */
+/* Móvil Pequeño: hasta 479px */
 @media (max-width: 479px) {
   .hero-section {
     padding: 32px 12px;
@@ -304,7 +304,7 @@
     padding: 16px;
   }
 }
-/* Tablet: 600px to 959px */
+/* Tableta: 600px a 959px */
 @media (min-width: 600px) {
   .home-container {
     min-height: calc(100vh - 64px);
@@ -407,7 +407,7 @@
     }
   }
 }
-/* Desktop: 960px and up */
+/* Escritorio: 960px en adelante */
 @media (min-width: 960px) {
   .hero-section {
     padding: 80px 24px;
@@ -517,7 +517,7 @@
     }
   }
 }
-/* Large Desktop: 1280px and up */
+/* Escritorio Grande: 1280px en adelante */
 @media (min-width: 1280px) {
   .hero-section {
     .hero-content {

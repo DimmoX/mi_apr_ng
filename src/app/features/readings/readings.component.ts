@@ -92,6 +92,8 @@ export class ReadingsComponent implements OnInit {
       });
     }
   }
+
+  // Método para configurar el formulario según el rol del usuario
   private setupFormForRole(): void {
     const role = this.userRole();
     if (role === 'cliente') {
@@ -101,6 +103,8 @@ export class ReadingsComponent implements OnInit {
       this.setupClientMeterListener();
     }
   }
+
+  // Método para configurar el listener de cambios en el cliente seleccionado
   private setupClientMeterListener(): void {
     // Escuchar cambios en la selección de cliente para actualizar medidores
     this.readingForm.get('clientId')?.valueChanges.subscribe(clientId => {
@@ -114,6 +118,8 @@ export class ReadingsComponent implements OnInit {
       }
     });
   }
+
+  // Método para verificar si el diálogo de solicitud de medidor debe abrirse automáticamente
   private loadReadings(): void {
     this.isLoading.set(true);
     setTimeout(() => {
@@ -129,6 +135,8 @@ export class ReadingsComponent implements OnInit {
       this.isLoading.set(false);
     }, 500);
   }
+
+  // Método para cargar los clientes disponibles
   private loadClients(): void {
     const role = this.userRole();
     if (role !== 'cliente') {
@@ -136,6 +144,8 @@ export class ReadingsComponent implements OnInit {
       this.clients.set(clientUsers);
     }
   }
+
+  // Método para cargar los medidores disponibles
   private loadMeters(): void {
     const allMeters = this.dataInitService.getMeters();
     this.meters.set(allMeters);
@@ -178,11 +188,15 @@ export class ReadingsComponent implements OnInit {
     const previousReading = lastReading ? lastReading.lecturaActual : 0;
     const consumption = Math.max(0, formData.currentReading - previousReading);
 
+    // Debug: verificar el valor de la fecha
+    console.log('FormData.date:', formData.date);
+    console.log('Tipo de formData.date:', typeof formData.date);
+
     const newReading: WaterReading = {
       id: this.generateReadingId(),
       idUsuario: targetUserId,
       idMedidor: meterId,
-      fechaLectura: formData.date.toISOString().split('T')[0],
+      fechaLectura: this.formatDateForStorage(formData.date),
       horaLectura: new Date().toTimeString().substring(0, 5),
       lecturaAnterior: previousReading,
       lecturaActual: formData.currentReading,
@@ -208,6 +222,8 @@ export class ReadingsComponent implements OnInit {
       this.selectedClientMeters.set([]);
     }
   }
+
+  // Método para generar un ID único para la nueva lectura
   getStatusText(status: string): string {
     const statusMap: { [key: string]: string } = {
       'pendiente': 'Pendiente',
@@ -216,6 +232,8 @@ export class ReadingsComponent implements OnInit {
     };
     return statusMap[status] || status;
   }
+
+  // Método para obtener el color del estado de la lectura
   getStatusColor(status: string): string {
     const colorMap: { [key: string]: string } = {
       'pendiente': '#ff9800',
@@ -224,22 +242,89 @@ export class ReadingsComponent implements OnInit {
     };
     return colorMap[status] || '#666';
   }
+
+  // Método para verificar si el usuario puede agregar lecturas
   canAddReading(): boolean {
     const role = this.userRole();
     return role === 'admin' || role === 'funcionario' || role === 'tecnico';
   }
+
+  // Método para navegar a la página de inicio
   goBack(): void {
     this.router.navigate(['/dashboard']);
   }
+
+  // Método para formatear la fecha en formato DD/MM/YYYY
   formatDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString('es-CL');
+    if (!dateString) return 'Fecha no disponible';
+    
+    // Si la fecha ya está en formato DD/MM/YYYY, devolverla tal como está
+    if (dateString.includes('/') && dateString.split('/').length === 3) {
+      const parts = dateString.split('/');
+      if (parts[0].length === 2 && parts[1].length === 2 && parts[2].length === 4) {
+        return dateString; // Ya está en formato DD/MM/YYYY
+      }
+    }
+    
+    // Intentar convertir desde otros formatos
+    const date = new Date(dateString);
+    
+    if (isNaN(date.getTime())) {
+      console.error('Fecha inválida para formatear:', dateString);
+      return 'Fecha inválida';
+    }
+    
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
+
+  // Método para formatear la fecha para almacenamiento
+  formatDateForStorage(date: Date | string | null): string {
+    if (!date) {
+      // Si no hay fecha, usar la fecha actual
+      const today = new Date();
+      const day = today.getDate().toString().padStart(2, '0');
+      const month = (today.getMonth() + 1).toString().padStart(2, '0');
+      const year = today.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+    
+    let dateObj: Date;
+    
+    if (typeof date === 'string') {
+      dateObj = new Date(date);
+    } else {
+      dateObj = date;
+    }
+    
+    // Verificar si la fecha es válida
+    if (isNaN(dateObj.getTime())) {
+      console.error('Fecha inválida recibida:', date);
+      // Usar fecha actual como fallback
+      const today = new Date();
+      const day = today.getDate().toString().padStart(2, '0');
+      const month = (today.getMonth() + 1).toString().padStart(2, '0');
+      const year = today.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+    
+    const day = dateObj.getDate().toString().padStart(2, '0');
+    const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+    const year = dateObj.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  // Método para generar un ID único para la nueva lectura
   getAverageConsumption(): number {
     const userReadings = this.readings();
     if (userReadings.length === 0) return 0;
     const totalConsumption = userReadings.reduce((sum, reading) => sum + reading.consumo, 0);
     return Math.round(totalConsumption / userReadings.length);
   }
+
+  // Método para obtener la última fecha de lectura del usuario
   getLastReadingDate(): string {
     const userReadings = this.readings();
     if (userReadings.length === 0) return 'No disponible';
@@ -247,11 +332,15 @@ export class ReadingsComponent implements OnInit {
       .sort((a, b) => new Date(b.fechaLectura).getTime() - new Date(a.fechaLectura).getTime())[0];
     return this.formatDate(lastReading.fechaLectura);
   }
+
+  // Método para generar un ID único para la nueva lectura
   generateReadingId(): number {
     const allReadings = this.dataInitService.getReadings();
     const maxId = allReadings.length > 0 ? Math.max(...allReadings.map(r => r.id)) : 0;
     return maxId + 1;
   }
+
+  // Método para calcular el costo promedio de las lecturas
   getAverageCost(): number {
     const userReadings = this.readings();
     if (userReadings.length === 0) return 0;
@@ -259,12 +348,16 @@ export class ReadingsComponent implements OnInit {
     const totalCost = userReadings.reduce((sum, reading) => sum + (reading.consumo * costPerCubicMeter), 0);
     return totalCost / userReadings.length;
   }
+
+  // Método para formatear la moneda
   formatCurrency(amount: number): string {
     return new Intl.NumberFormat('es-CL', {
       style: 'currency',
       currency: 'CLP'
     }).format(amount);
   }
+
+  // Método para obtener el nombre del usuario en formato legible
   getUserName(userId: string | number): string {
     const usersData = localStorage.getItem('apr_users');
     if (!usersData) return 'Usuario desconocido';
@@ -275,6 +368,8 @@ export class ReadingsComponent implements OnInit {
   getClientDisplayName(client: User): string {
     return `${client.name} ${client.lastname} (${client.email})`;
   }
+
+  // Método para obtener el nombre del medidor en un formato legible
   getMeterDisplayName(meter: WaterMeter): string {
     return `${meter.id} - ${meter.marca} ${meter.modelo}`;
   }

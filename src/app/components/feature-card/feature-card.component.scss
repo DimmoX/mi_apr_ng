@@ -7,6 +7,9 @@
   position: relative;
   overflow: hidden;
   box-shadow: var(--subtle-shadow);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   &::before {
     content: '';
     position: absolute;
@@ -54,14 +57,19 @@
     padding: 32px 24px;
     position: relative;
     z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     .feature-icon {
       font-size: 64px;
       width: 64px;
       height: 64px;
       color: var(--water-primary);
-      margin-bottom: 24px;
+      margin: 0 auto 24px auto;
       transition: all 0.3s ease;
       filter: drop-shadow(0 2px 4px rgba(13, 71, 161, 0.2));
+      display: block;
     }
     .feature-title {
       font-size: 1.5rem;
@@ -86,7 +94,8 @@
       font-size: 48px;
       width: 48px;
       height: 48px;
-      margin-bottom: 16px;
+      margin: 0 auto 16px auto;
+      display: block;
     }
     .feature-title {
       font-size: 1.3rem;

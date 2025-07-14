@@ -2,7 +2,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 /**
- * Guard to protect routes that require authentication
+ * Guard para proteger rutas que requieren autenticación
  */
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
@@ -14,7 +14,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   return false;
 };
 /**
- * Guard to redirect authenticated users away from auth pages
+ * Guard para redirigir usuarios autenticados lejos de páginas de autenticación
  */
 export const guestGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
@@ -26,7 +26,7 @@ export const guestGuard: CanActivateFn = (route, state) => {
   return false;
 };
 /**
- * Guard to protect admin-only routes
+ * Guard para proteger rutas solo para administradores
  */
 export const adminGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
@@ -42,7 +42,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
   return false;
 };
 /**
- * Guard to protect routes for funcionario and admin roles
+ * Guard para proteger rutas para roles de funcionario y administrador
  */
 export const funcionarioGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
@@ -59,7 +59,7 @@ export const funcionarioGuard: CanActivateFn = (route, state) => {
   return false;
 };
 /**
- * Guard to protect routes for tecnico, funcionario and admin roles
+ * Guard para proteger rutas para roles de técnico, funcionario y administrador
  */
 export const tecnicoGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);

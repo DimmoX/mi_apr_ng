@@ -1,4 +1,4 @@
-// Barrel export for reusable components
+// Exportación en barrel para componentes reutilizables
 export { PageHeaderComponent } from './page-header/page-header.component';
 export { FeatureCardComponent } from './feature-card/feature-card.component';
 export { ActionButtonComponent } from './action-button/action-button.component';

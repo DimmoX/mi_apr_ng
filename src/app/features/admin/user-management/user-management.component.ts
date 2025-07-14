@@ -34,6 +34,15 @@ import { ActionButtonComponent } from '../../../components/action-button/action-
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.scss'
 })
+/**
+ * Componente de gestión de usuarios para administradores
+ *
+ * Este componente permite a los administradores ver, crear y eliminar usuarios.
+ * Utiliza un servicio de gestión de usuarios para interactuar con la API.
+ * Incluye un diálogo para crear nuevos usuarios con validación de formularios.
+ * Muestra una tabla con los usuarios existentes, sus roles y acciones disponibles.
+ * Permite la navegación hacia atrás y la visualización de roles con colores específicos.
+ */
 export class UserManagementComponent implements OnInit {
   users = signal<User[]>([]);
   isLoading = signal(false);

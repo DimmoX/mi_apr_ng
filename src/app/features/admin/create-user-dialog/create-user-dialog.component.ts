@@ -24,18 +24,10 @@ import { ValidationService } from '../../../core/services/validation.service';
     MatIconModule,
     MatProgressBarModule
   ],
-  /**
-   * Este componente es un diálogo para crear un nuevo usuario.
-   * Utiliza Reactive Forms para la validación y manejo de datos.
-   * Incluye campos para nombre, apellido, email, teléfono, rol y contraseña.
-   * La contraseña tiene validación de fortaleza y un indicador visual.
-   * Los roles disponibles son: Cliente, Técnico, Funcionario y Administrador.
-   * El diálogo se cierra con los datos del usuario o sin datos si se cancela
-   */
   template: `
     <h2 mat-dialog-title>Crear Nuevo Usuario</h2>
     <div mat-dialog-content>
-      <form [formGroup]="userForm" class="create-user-form">
+      <form [formGroup]="userForm" (ngSubmit)="onCreate()" class="create-user-form">
         <div class="form-row">
           <mat-form-field appearance="outline" class="half-width">
             <mat-label>Nombre</mat-label>
@@ -100,9 +92,10 @@ import { ValidationService } from '../../../core/services/validation.service';
       </form>
     </div>
     <div mat-dialog-actions align="end">
-      <button mat-button (click)="onCancel()">Cancelar</button>
+      <button mat-button type="button" (click)="onCancel()">Cancelar</button>
       <button mat-raised-button 
               color="primary" 
+              type="submit"
               (click)="onCreate()"
               [disabled]="userForm.invalid">
         <mat-icon>add</mat-icon>
@@ -147,6 +140,26 @@ import { ValidationService } from '../../../core/services/validation.service';
     }
   `]
 })
+/**
+ * Este componente es un dialog para crear un nuevo usuario.
+ * Utiliza Reactive Forms para la validación y manejo de datos.
+ * Incluye campos para nombre, apellido, email, teléfono, rol y contraseña.
+ * La contraseña tiene validación de fortaleza y un indicador visual.
+ * Los roles disponibles son: Cliente, Técnico, Funcionario y Administrador.
+ * El diálogo se cierra con los datos del usuario o sin datos si se cancela.
+ * @example
+ * ```typescript
+ * constructor(private dialog: MatDialog) {}
+ * // Abrir el diálogo para crear un nuevo usuario
+ * const dialogRef = this.dialog.open(CreateUserDialogComponent);
+ * dialogRef.afterClosed().subscribe(result => {
+ *   if (result) {
+ *     console.log('Nuevo usuario creado:', result);
+ *   } else {
+ *     console.log('Creación de usuario cancelada');
+ *   }
+ * });  
+ */
 export class CreateUserDialogComponent {
   userForm: FormGroup;
   hidePassword = signal(true);

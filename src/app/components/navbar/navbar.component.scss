@@ -199,7 +199,7 @@
             height: 24px;
           }
         }
-        // Enhanced user menu trigger with dropdown indicator
+        // Activador del menú de usuario mejorado con indicador de dropdown
         .user-menu-trigger {
           display: flex !important;
           align-items: center;
@@ -633,7 +633,7 @@
   }
 }
 
-// Responsive styles for enhanced user menu
+// Estilos responsive para el menú de usuario mejorado
 @media (max-width: 768px) {
   ::ng-deep .enhanced-user-menu {
     .mat-mdc-menu-panel {

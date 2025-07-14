@@ -2,10 +2,27 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Servicio de validación para datos del sistema APR.
+ * 
+ * Este servicio proporciona métodos para validar números de teléfono, correos electrónicos,
+ * contraseñas, nombres y lecturas de medidores de agua. Utiliza expresiones regulares y
+ * lógica específica para asegurar que los datos cumplan con los formatos requeridos.
+ * 
+ * @example
+ * ```typescript
+ * constructor(private validationService: ValidationService) {}
+ * 
+ * // Validar un número de teléfono chileno
+ * const phoneValidation = this.validationService.validatePhoneNumber('+56912345678');
+ * if (!phoneValidation.isValid) {
+ *   console.error(phoneValidation.message);
+ * }
+ * ```
+ */
 export class ValidationService {
   /**
-   * Validate Chilean phone number format
-   * Accepts formats: +56912345678, 56912345678, 912345678
+    * Valida un número de teléfono chileno
    */
   validatePhoneNumber(phone: string): { isValid: boolean; message?: string } {
     if (!phone || phone.trim() === '') {
@@ -28,7 +45,7 @@ export class ValidationService {
     return { isValid: true };
   }
   /**
-   * Format phone number to standard Chilean format
+   * Formatea un número de teléfono chileno a un formato estándar
    */
   formatPhoneNumber(phone: string): string {
     if (!phone) return '';
@@ -45,7 +62,7 @@ export class ValidationService {
     return phone; 
   }
   /**
-   * Validate email format
+   * Validar formato de email
    */
   validateEmail(email: string): { isValid: boolean; message?: string } {
     if (!email || email.trim() === '') {
@@ -58,7 +75,7 @@ export class ValidationService {
     return { isValid: true };
   }
   /**
-   * Validate password strength
+   * Validar la fuerza de la contraseña
    */
   validatePassword(password: string): { isValid: boolean; message?: string; strength?: string } {
     if (!password || password.trim() === '') {
@@ -90,7 +107,7 @@ export class ValidationService {
     };
   }
   /**
-   * Validate password confirmation
+   * Validar confirmación de contraseña
    */
   validatePasswordConfirmation(password: string, confirmPassword: string): { isValid: boolean; message?: string } {
     if (!confirmPassword || confirmPassword.trim() === '') {
@@ -102,7 +119,7 @@ export class ValidationService {
     return { isValid: true };
   }
   /**
-   * Validate name (first name or last name)
+   * Validar nombre (nombre o apellido)
    */
   validateName(name: string, fieldName: string = 'nombre'): { isValid: boolean; message?: string } {
     if (!name || name.trim() === '') {
@@ -121,7 +138,7 @@ export class ValidationService {
     return { isValid: true };
   }
   /**
-   * Validate water meter reading
+   * Validar lectura de medidor de agua
    */
   validateWaterReading(current: number, previous: number): { isValid: boolean; message?: string } {
     if (current === null || current === undefined || isNaN(current)) {
@@ -145,7 +162,7 @@ export class ValidationService {
     return { isValid: true };
   }
   /**
-   * Get password strength indicator
+   * Obtiene la fuerza de la contraseña en un formato legible
    */
   getPasswordStrength(password: string): { level: number; text: string; color: string } {
     const validation = this.validatePassword(password);

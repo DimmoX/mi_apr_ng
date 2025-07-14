@@ -1,0 +1,263 @@
+<app-page-header 
+  title="Gestión de Medidores" 
+  subtitle="Administra las solicitudes de registro de medidores"
+  (backClick)="goBack()">
+</app-page-header>
+
+<div class="meter-management-container">
+  <!-- Estadísticas -->
+  <div class="stats-section">
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-content">
+          <mat-icon class="stat-icon pending">schedule</mat-icon>
+          <div class="stat-info">
+            <span class="stat-number">{{ stats().pendientes }}</span>
+            <span class="stat-label">Pendientes</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-content">
+          <mat-icon class="stat-icon approved">check_circle</mat-icon>
+          <div class="stat-info">
+            <span class="stat-number">{{ stats().aprobadas }}</span>
+            <span class="stat-label">Aprobadas</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-content">
+          <mat-icon class="stat-icon rejected">cancel</mat-icon>
+          <div class="stat-info">
+            <span class="stat-number">{{ stats().rechazadas }}</span>
+            <span class="stat-label">Rechazadas</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-content">
+          <mat-icon class="stat-icon total">assessment</mat-icon>
+          <div class="stat-info">
+            <span class="stat-number">{{ stats().total }}</span>
+            <span class="stat-label">Total</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Tabs para solicitudes -->
+  <mat-tab-group class="requests-tabs">
+    
+    <!-- Tab de solicitudes pendientes -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>schedule</mat-icon>
+        Pendientes
+        <span matBadge="{{ pendingRequests().length }}" 
+              matBadgeColor="accent" 
+              matBadgeSize="small"
+              *ngIf="pendingRequests().length > 0">
+        </span>
+      </ng-template>
+      
+      <div class="tab-content">
+        <mat-card *ngIf="pendingRequests().length === 0" class="empty-state">
+          <mat-card-content>
+            <mat-icon class="empty-icon">inbox</mat-icon>
+            <h3>No hay solicitudes pendientes</h3>
+            <p>Todas las solicitudes han sido procesadas.</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card *ngIf="pendingRequests().length > 0">
+          <mat-card-header>
+            <mat-card-title>Solicitudes Pendientes de Aprobación</mat-card-title>
+            <mat-card-subtitle>
+              {{ pendingRequests().length }} solicitud(es) esperando revisión
+            </mat-card-subtitle>
+          </mat-card-header>
+          
+          <mat-card-content>
+            <table mat-table [dataSource]="pendingRequests()" class="requests-table">
+              
+              <!-- Columna Fecha -->
+              <ng-container matColumnDef="fechaSolicitud">
+                <th mat-header-cell *matHeaderCellDef>Fecha Solicitud</th>
+                <td mat-cell *matCellDef="let request">
+                  {{ formatDate(request.fechaSolicitud) }}
+                </td>
+              </ng-container>
+
+              <!-- Columna Usuario -->
+              <ng-container matColumnDef="usuario">
+                <th mat-header-cell *matHeaderCellDef>Usuario</th>
+                <td mat-cell *matCellDef="let request">
+                  <div class="user-info">
+                    <mat-icon>person</mat-icon>
+                    <span>{{ getUserName(request.idUsuario) }}</span>
+                  </div>
+                </td>
+              </ng-container>
+
+              <!-- Columna Medidor -->
+              <ng-container matColumnDef="medidor">
+                <th mat-header-cell *matHeaderCellDef>Medidor</th>
+                <td mat-cell *matCellDef="let request">
+                  <div class="meter-info">
+                    <div class="meter-brand">{{ request.marca }} {{ request.modelo }}</div>
+                    <div class="meter-serial">N° Serie: {{ request.numeroSerie }}</div>
+                  </div>
+                </td>
+              </ng-container>
+
+              <!-- Columna Ubicación -->
+              <ng-container matColumnDef="ubicacion">
+                <th mat-header-cell *matHeaderCellDef>Ubicación</th>
+                <td mat-cell *matCellDef="let request">
+                  <div class="location-info" 
+                       [matTooltip]="request.ubicacion"
+                       matTooltipPosition="above">
+                    <mat-icon>location_on</mat-icon>
+                    <span class="location-text">{{ request.ubicacion }}</span>
+                  </div>
+                </td>
+              </ng-container>
+
+              <!-- Columna Acciones -->
+              <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                <td mat-cell *matCellDef="let request">
+                  <div class="action-buttons">
+                    <button mat-raised-button 
+                            color="primary" 
+                            (click)="openApprovalDialog(request)"
+                            matTooltip="Aprobar solicitud">
+                      <mat-icon>check</mat-icon>
+                      Aprobar
+                    </button>
+                    <button mat-raised-button 
+                            color="warn" 
+                            (click)="openRejectionDialog(request)"
+                            matTooltip="Rechazar solicitud">
+                      <mat-icon>close</mat-icon>
+                      Rechazar
+                    </button>
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="pendingColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: pendingColumns;"></tr>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <!-- Tab de solicitudes procesadas -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>history</mat-icon>
+        Historial
+      </ng-template>
+      
+      <div class="tab-content">
+        <mat-card *ngIf="processedRequests().length === 0" class="empty-state">
+          <mat-card-content>
+            <mat-icon class="empty-icon">history</mat-icon>
+            <h3>No hay historial disponible</h3>
+            <p>No se han procesado solicitudes aún.</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card *ngIf="processedRequests().length > 0">
+          <mat-card-header>
+            <mat-card-title>Historial de Solicitudes Procesadas</mat-card-title>
+            <mat-card-subtitle>
+              {{ processedRequests().length }} solicitud(es) procesada(s)
+            </mat-card-subtitle>
+          </mat-card-header>
+          
+          <mat-card-content>
+            <table mat-table [dataSource]="processedRequests()" class="requests-table">
+              
+              <!-- Columna Fecha Solicitud -->
+              <ng-container matColumnDef="fechaSolicitud">
+                <th mat-header-cell *matHeaderCellDef>Fecha Solicitud</th>
+                <td mat-cell *matCellDef="let request">
+                  {{ formatDate(request.fechaSolicitud) }}
+                </td>
+              </ng-container>
+
+              <!-- Columna Usuario -->
+              <ng-container matColumnDef="usuario">
+                <th mat-header-cell *matHeaderCellDef>Usuario</th>
+                <td mat-cell *matCellDef="let request">
+                  <div class="user-info">
+                    <mat-icon>person</mat-icon>
+                    <span>{{ getUserName(request.idUsuario) }}</span>
+                  </div>
+                </td>
+              </ng-container>
+
+              <!-- Columna Medidor -->
+              <ng-container matColumnDef="medidor">
+                <th mat-header-cell *matHeaderCellDef>Medidor</th>
+                <td mat-cell *matCellDef="let request">
+                  <div class="meter-info">
+                    <div class="meter-brand">{{ request.marca }} {{ request.modelo }}</div>
+                    <div class="meter-serial">N° Serie: {{ request.numeroSerie }}</div>
+                  </div>
+                </td>
+              </ng-container>
+
+              <!-- Columna Estado -->
+              <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef>Estado</th>
+                <td mat-cell *matCellDef="let request">
+                  <mat-chip [color]="getStatusChipColor(request.estado)">
+                    {{ getStatusText(request.estado) }}
+                  </mat-chip>
+                </td>
+              </ng-container>
+
+              <!-- Columna Fecha Respuesta -->
+              <ng-container matColumnDef="fechaRespuesta">
+                <th mat-header-cell *matHeaderCellDef>Fecha Respuesta</th>
+                <td mat-cell *matCellDef="let request">
+                  {{ request.fechaRespuesta ? formatDate(request.fechaRespuesta) : '-' }}
+                </td>
+              </ng-container>
+
+              <!-- Columna Procesado Por -->
+              <ng-container matColumnDef="respuestaPor">
+                <th mat-header-cell *matHeaderCellDef>Procesado Por</th>
+                <td mat-cell *matCellDef="let request">
+                  <div class="processed-by" *ngIf="request.respuestaPor">
+                    <mat-icon>person</mat-icon>
+                    <span>{{ request.respuestaPor }}</span>
+                  </div>
+                  <span *ngIf="!request.respuestaPor">-</span>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="processedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: processedColumns;"></tr>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

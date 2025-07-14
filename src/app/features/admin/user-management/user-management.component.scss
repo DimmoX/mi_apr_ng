@@ -184,7 +184,7 @@ mat-chip {
     font-size: 14px;
   }
 }
-/* Mobile First: Base styles for mobile (up to 599px) */
+/* Móvil Primero: Estilos base para móvil (hasta 599px) */
 .user-management-container {
   .page-header {
     padding: 12px 16px;
@@ -305,7 +305,7 @@ mat-chip {
     }
   }
 }
-/* Small Mobile: up to 479px */
+/* Móvil Pequeño: hasta 479px */
 @media (max-width: 479px) {
   .user-management-container {
     .page-header {
@@ -325,7 +325,7 @@ mat-chip {
     }
   }
 }
-/* Tablet: 600px to 959px */
+/* Tableta: 600px a 959px */
 @media (min-width: 600px) {
   .user-management-container {
     .page-header {
@@ -454,7 +454,7 @@ mat-chip {
     }
   }
 }
-/* Desktop: 960px and up */
+/* Escritorio: 960px en adelante */
 @media (min-width: 960px) {
   .user-management-container {
     .page-header {
@@ -593,7 +593,7 @@ mat-chip {
     }
   }
 }
-/* Large Desktop: 1280px and up */
+/* Escritorio Grande: 1280px en adelante */
 @media (min-width: 1280px) {
   .user-management-container {
     .page-header {

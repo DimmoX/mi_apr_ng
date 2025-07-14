@@ -1,12 +1,12 @@
 <mat-toolbar color="primary" class="main-toolbar">
-    <!-- Logo/Brand -->
+    <!-- Logo de la aplicación -->
     <div class="brand">
         <mat-icon class="brand-icon">water_drop</mat-icon>
         <span class="brand-text">Mi APR</span>
     </div>
-    <!-- Spacer -->
+    <!-- Espaciador -->
     <span class="spacer"></span>
-    <!-- Desktop Navigation -->
+    <!-- Navegación de escritorio -->
     <nav class="desktop-nav" *ngIf="!isMobile()">
         <a mat-button 
             *ngFor="let item of publicNavItems" 
@@ -16,9 +16,9 @@
         {{ item.label }}
         </a>
     </nav>
-    <!-- User Actions -->
+    <!-- Acciones de usuario -->
     <div class="user-actions">
-        <!-- Not authenticated -->
+        <!-- No autenticado -->
         <div *ngIf="!isAuthenticated()" class="auth-buttons">
         <button mat-button (click)="navigateToLogin()">
             <mat-icon>login</mat-icon>
@@ -29,7 +29,7 @@
             Registrarse
         </button>
         </div>
-        <!-- Authenticated -->
+        <!-- Autenticado -->
         <div *ngIf="isAuthenticated()" class="user-menu">
         <button mat-button (click)="navigateToDashboard()">
             <mat-icon>dashboard</mat-icon>
@@ -65,8 +65,8 @@
                     <span>Lecturas</span>
                 </button>
             </div>
-            
-            <!-- Admin menu items -->
+
+            <!-- Elementos del menú de administración -->
             <div *ngIf="isAdmin()">
                 <mat-divider class="menu-divider"></mat-divider>
                 <div class="menu-section admin-section">
@@ -90,7 +90,7 @@
             </div>
         </mat-menu>
         </div>
-        <!-- Mobile Menu Button -->
+        <!-- Botón de menú vista móvil -->
         <button *ngIf="isMobile()" mat-icon-button [matMenuTriggerFor]="mobileMenu">
         <mat-icon>menu</mat-icon>
         </button>
@@ -101,7 +101,7 @@
             <mat-icon>{{ item.icon }}</mat-icon>
             <span>{{ item.label }}</span>
         </a>
-        <!-- Authenticated user options -->
+        <!-- Opciones para usuarios autenticados -->
         <div *ngIf="isAuthenticated()">
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="navigateToDashboard()">
@@ -116,7 +116,7 @@
             <mat-icon>analytics</mat-icon>
             <span>Lecturas</span>
             </button>
-            <!-- Admin options -->
+            <!-- Opciones de administración -->
             <div *ngIf="isAdmin()">
             <mat-divider></mat-divider>
             <div class="menu-section-title">Administración</div>
@@ -131,7 +131,7 @@
             <span>Cerrar Sesión</span>
             </button>
         </div>
-        <!-- Non-authenticated user options -->
+        <!-- Opciones para usuarios no autenticados -->
         <div *ngIf="!isAuthenticated()">
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="navigateToLogin()">

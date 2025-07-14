@@ -42,29 +42,30 @@
               {{ getPasswordError() }}
             </div>
           </div>
+          
+          <!-- Botón de submit dentro del formulario -->
+          <div class="login-form-actions">
+            <button mat-raised-button 
+                    color="primary" 
+                    type="submit"
+                    [disabled]="isLoading()"
+                    class="full-width login-button">
+              <span *ngIf="!isLoading()">Iniciar Sesión</span>
+              <mat-spinner *ngIf="isLoading()" diameter="20"></mat-spinner>
+            </button>
+          </div>
         </form>
       </div>
     </mat-card-content>
     <mat-card-actions class="login-actions">
-      <div class="login-form-actions">
-        <button mat-raised-button 
-                color="primary" 
-                type="submit"
-                [disabled]="isLoading()"
-                (click)="onSubmit()"
-                class="full-width login-button">
-          <span *ngIf="!isLoading()">Iniciar Sesión</span>
-          <mat-spinner *ngIf="isLoading()" diameter="20"></mat-spinner>
+      <div class="forgot-password-link">
+        <button mat-button 
+                type="button"
+                class="forgot-password-button"
+                (click)="navigateToForgotPassword()">
+          <mat-icon>help_outline</mat-icon>
+          ¿Olvidaste tu contraseña?
         </button>
-        <div class="forgot-password-link">
-          <button mat-button 
-                  type="button"
-                  class="forgot-password-button"
-                  (click)="navigateToForgotPassword()">
-            <mat-icon>help_outline</mat-icon>
-            ¿Olvidaste tu contraseña?
-          </button>
-        </div>
       </div>
       <div class="register-link">
         <span>¿No tienes cuenta? </span>

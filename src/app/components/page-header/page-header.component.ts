@@ -15,6 +15,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './page-header.component.html',
   styleUrl: './page-header.component.scss'
 })
+
+/**
+ * Componente de encabezado de página reutilizable
+ *
+ * Este componente muestra un título, subtítulo, icono y una ruta de navegación.
+ * Permite personalizar el ancho máximo y la visibilidad del botón de retroceso.
+ * El botón de retroceso emite un evento al hacer clic.
+ */
 export class PageHeaderComponent {
   @Input() title: string = '';
   @Input() subtitle: string = '';
