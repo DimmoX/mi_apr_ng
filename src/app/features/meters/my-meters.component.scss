@@ -1,0 +1,118 @@
+.meters-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  background: var(--light-water-gradient);
+  min-height: calc(100vh - 160px);
+}
+
+.meters-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.meters-card,
+.requests-card,
+.empty-state-card {
+  border-radius: 12px;
+  background: var(--surface-color);
+  border: 2px solid var(--water-surface);
+  box-shadow: var(--surface-shadow);
+}
+
+.table-container {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+.meters-table,
+.requests-table {
+  width: 100%;
+  
+  th {
+    background-color: var(--water-primary-light);
+    color: white;
+    font-weight: 600;
+  }
+  
+  td {
+    padding: 12px 16px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  
+  .empty-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: var(--water-primary);
+    margin-bottom: 16px;
+  }
+  
+  h3 {
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.action-buttons {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+}
+
+// Diseño responsive
+@media (max-width: 768px) {
+  .meters-container {
+    padding: 16px;
+  }
+  
+  .table-container {
+    font-size: 14px;
+  }
+  
+  .empty-state {
+    padding: 32px 16px;
+    
+    .empty-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .meters-table,
+  .requests-table {
+    th, td {
+      padding: 8px 4px;
+      font-size: 12px;
+    }
+  }
+}

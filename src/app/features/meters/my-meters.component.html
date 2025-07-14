@@ -1,0 +1,125 @@
+<div class="meters-container">
+  <app-page-header
+    title="Mis Medidores"
+    subtitle="Gestiona tus medidores de agua"
+    icon="device_hub"
+    breadcrumbPath="Dashboard"
+    breadcrumbCurrent="Mis Medidores"
+    (backClick)="goBack()">
+  </app-page-header>
+
+  <div class="meters-content">
+    <!-- Medidores Activos -->
+    <mat-card class="meters-card" *ngIf="userMeters().length > 0">
+      <mat-card-header>
+        <mat-card-title>Medidores Registrados</mat-card-title>
+        <mat-card-subtitle>Medidores activos en tu propiedad</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="table-container">
+          <table mat-table [dataSource]="userMeters()" class="meters-table">
+            <ng-container matColumnDef="numeroSerie">
+              <th mat-header-cell *matHeaderCellDef>Número de Serie</th>
+              <td mat-cell *matCellDef="let meter">{{ meter.numeroSerie }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="marca">
+              <th mat-header-cell *matHeaderCellDef>Marca</th>
+              <td mat-cell *matCellDef="let meter">{{ meter.marca }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="modelo">
+              <th mat-header-cell *matHeaderCellDef>Modelo</th>
+              <td mat-cell *matCellDef="let meter">{{ meter.modelo }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="estado">
+              <th mat-header-cell *matHeaderCellDef>Estado</th>
+              <td mat-cell *matCellDef="let meter">
+                <span class="status-badge" [style.color]="getStatusColor(meter.estado)">
+                  {{ getStatusText(meter.estado) }}
+                </span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fechaInstalacion">
+              <th mat-header-cell *matHeaderCellDef>Fecha Instalación</th>
+              <td mat-cell *matCellDef="let meter">{{ meter.fechaInstalacion }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Solicitudes de Medidores -->
+    <mat-card class="requests-card" *ngIf="userRequests().length > 0">
+      <mat-card-header>
+        <mat-card-title>Solicitudes de Medidores</mat-card-title>
+        <mat-card-subtitle>Estado de tus solicitudes</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="table-container">
+          <table mat-table [dataSource]="userRequests()" class="requests-table">
+            <ng-container matColumnDef="fechaSolicitud">
+              <th mat-header-cell *matHeaderCellDef>Fecha Solicitud</th>
+              <td mat-cell *matCellDef="let request">{{ request.fechaSolicitud }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="marca">
+              <th mat-header-cell *matHeaderCellDef>Marca</th>
+              <td mat-cell *matCellDef="let request">{{ request.marca }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="modelo">
+              <th mat-header-cell *matHeaderCellDef>Modelo</th>
+              <td mat-cell *matCellDef="let request">{{ request.modelo }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="estado">
+              <th mat-header-cell *matHeaderCellDef>Estado</th>
+              <td mat-cell *matCellDef="let request">
+                <span class="status-badge" [style.color]="getStatusColor(request.estado)">
+                  {{ getStatusText(request.estado) }}
+                </span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fechaRespuesta">
+              <th mat-header-cell *matHeaderCellDef>Fecha Respuesta</th>
+              <td mat-cell *matCellDef="let request">
+                {{ request.fechaRespuesta || 'Pendiente' }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="requestColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: requestColumns;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Estado sin medidores -->
+    <mat-card class="empty-state-card" *ngIf="userMeters().length === 0 && userRequests().length === 0">
+      <mat-card-content class="empty-state">
+        <mat-icon class="empty-icon">device_hub</mat-icon>
+        <h3>No tienes medidores registrados</h3>
+        <p>Para comenzar a utilizar el sistema, necesitas solicitar el registro de tu medidor de agua.</p>
+        <button mat-raised-button color="primary" (click)="openMeterRequestDialog()">
+          <mat-icon>add</mat-icon>
+          Solicitar Registro de Medidor
+        </button>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Botón para nueva solicitud (si ya tiene medidores) -->
+    <div class="action-buttons" *ngIf="userMeters().length > 0">
+      <button mat-fab color="primary" (click)="openMeterRequestDialog()" 
+              matTooltip="Solicitar nuevo medidor">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
