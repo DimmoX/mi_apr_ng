@@ -250,13 +250,7 @@ El proyecto utiliza **Compodoc** para generar documentación automática del có
 
 ```bash
 # Generar documentación estática
-npm run compodoc
-
-# Generar y servir documentación en vivo
-npm run compodoc:serve
-
-# Generar documentación con cobertura
-npm run compodoc:coverage
+npx compodoc
 ```
 
 #### 📖 Acceso a la Documentación
@@ -445,24 +439,6 @@ describe('LoginComponent', () => {
 ```bash
 # Tests en modo watch (desarrollo)
 npm test
-
-# Tests una sola vez
-npm test -- --no-watch --no-progress --browsers=ChromeHeadless
-
-# Tests con coverage
-ng test --code-coverage
-```
-
-#### **Ejecución de Tests Específicos**
-```bash
-# Solo tests de Navbar
-ng test --include="**/navbar.component.spec.ts"
-
-# Solo tests de Login
-ng test --include="**/login.component.spec.ts"
-
-# Tests con patrón específico
-ng test --include="**/auth/**/*.spec.ts"
 ```
 
 #### **Resultados Esperados**
