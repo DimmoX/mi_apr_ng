@@ -188,10 +188,6 @@ export class ReadingsComponent implements OnInit {
     const previousReading = lastReading ? lastReading.lecturaActual : 0;
     const consumption = Math.max(0, formData.currentReading - previousReading);
 
-    // Debug: verificar el valor de la fecha
-    console.log('FormData.date:', formData.date);
-    console.log('Tipo de formData.date:', typeof formData.date);
-
     const newReading: WaterReading = {
       id: this.generateReadingId(),
       idUsuario: targetUserId,

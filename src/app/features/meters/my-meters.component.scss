@@ -21,6 +21,36 @@
   box-shadow: var(--surface-shadow);
 }
 
+// Estilos para el header con botón
+.card-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 16px;
+}
+
+.card-title-section {
+  flex: 1;
+}
+
+.card-actions {
+  flex-shrink: 0;
+}
+
+.add-meter-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
 .table-container {
   overflow-x: auto;
   margin-top: 16px;

@@ -183,7 +183,11 @@ export class DashboardComponent implements OnInit {
       return false;
     }
     
-    return this.meterService.shouldShowMeterRegistration(user.id);
+    // Solo mostrar la alerta si el usuario NO tiene medidores activos 
+    const hasActiveMeters = this.meterService.hasUserActiveMeters(user.id);
+    const hasPendingRequests = this.meterService.hasUserPendingRequests(user.id);
+    
+    return !hasActiveMeters && !hasPendingRequests;
   }
 
   /**

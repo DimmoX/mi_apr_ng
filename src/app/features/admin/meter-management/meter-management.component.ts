@@ -161,7 +161,9 @@ export class ApproveMeterDialogComponent {
           duration: 3000,
           panelClass: ['success-snackbar']
         });
-        this.dialogRef.close();
+        
+        // Cerrar el diálogo con un resultado que indique éxito
+        this.dialogRef.close({ success: true, action: 'approved' });
       }
     }
   }
@@ -268,7 +270,9 @@ export class RejectMeterDialogComponent {
           duration: 3000,
           panelClass: ['warning-snackbar']
         });
-        this.dialogRef.close();
+        
+        // Cerrar el diálogo con un resultado que indique éxito
+        this.dialogRef.close({ success: true, action: 'rejected' });
       }
     }
   }
@@ -336,16 +340,20 @@ export class MeterManagementComponent implements OnInit {
    * Abrir diálogo para aprobar solicitud
    */
   openApprovalDialog(request: MeterRequest): void {
+    console.log('🎯 Abriendo diálogo de aprobación para:', request.id);
     const dialogRef = this.dialog.open(ApproveMeterDialogComponent, {
       width: '600px',
       data: request
     });
 
-    // Inyectar la solicitud en el componente del diálogo
-    dialogRef.componentInstance.request = request;
-
-    dialogRef.afterClosed().subscribe(() => {
-      // Recargar datos después de cerrar el modal
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('🔄 Diálogo cerrado con resultado:', result);
+      if (result && result.success) {
+        console.log('✅ Solicitud aprobada exitosamente');
+        console.log('📊 Solicitudes pendientes después de aprobar:', this.pendingRequests().length);
+        // Los signals deberían actualizarse automáticamente
+        // ya que el servicio actualiza el signal cuando modifica los datos
+      }
     });
   }
 
@@ -353,16 +361,20 @@ export class MeterManagementComponent implements OnInit {
    * Abrir diálogo para rechazar solicitud
    */
   openRejectionDialog(request: MeterRequest): void {
+    console.log('🎯 Abriendo diálogo de rechazo para:', request.id);
     const dialogRef = this.dialog.open(RejectMeterDialogComponent, {
       width: '500px',
       data: request
     });
 
-    // Inyectar la solicitud en el componente del diálogo
-    dialogRef.componentInstance.request = request;
-
-    dialogRef.afterClosed().subscribe(() => {
-      // Recargar datos después de cerrar el modal
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('🔄 Diálogo cerrado con resultado:', result);
+      if (result && result.success) {
+        console.log('✅ Solicitud rechazada exitosamente');
+        console.log('📊 Solicitudes pendientes después de rechazar:', this.pendingRequests().length);
+        // Los signals deberían actualizarse automáticamente
+        // ya que el servicio actualiza el signal cuando modifica los datos
+      }
     });
   }
 

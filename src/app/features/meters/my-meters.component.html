@@ -12,8 +12,19 @@
     <!-- Medidores Activos -->
     <mat-card class="meters-card" *ngIf="userMeters().length > 0">
       <mat-card-header>
-        <mat-card-title>Medidores Registrados</mat-card-title>
-        <mat-card-subtitle>Medidores activos en tu propiedad</mat-card-subtitle>
+        <div class="card-header-content">
+          <div class="card-title-section">
+            <mat-card-title>Medidores Registrados</mat-card-title>
+            <mat-card-subtitle>Medidores activos en tu propiedad</mat-card-subtitle>
+          </div>
+          <div class="card-actions">
+            <button mat-raised-button color="primary" (click)="openMeterRequestDialog()" 
+                    class="add-meter-button">
+              <mat-icon>add</mat-icon>
+              Nuevo Medidor
+            </button>
+          </div>
+        </div>
       </mat-card-header>
       <mat-card-content>
         <div class="table-container">
@@ -114,12 +125,5 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- Botón para nueva solicitud (si ya tiene medidores) -->
-    <div class="action-buttons" *ngIf="userMeters().length > 0">
-      <button mat-fab color="primary" (click)="openMeterRequestDialog()" 
-              matTooltip="Solicitar nuevo medidor">
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
   </div>
 </div>

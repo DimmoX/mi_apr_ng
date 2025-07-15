@@ -189,8 +189,8 @@ export class MyMetersComponent implements OnInit {
 
   private checkAutoOpenDialog(): void {
     const user = this.currentUser();
-    if (user && this.meterService.shouldShowMeterRegistration(user.id)) {
-      // Abrir modal automáticamente si no tiene medidores ni solicitudes
+    // Solo abrir automáticamente si no tiene medidores ni solicitudes (primera vez)
+    if (user && this.userMeters().length === 0 && this.userRequests().length === 0) {
       setTimeout(() => {
         this.openMeterRequestDialog();
       }, 500);
@@ -204,6 +204,23 @@ export class MyMetersComponent implements OnInit {
     }).afterClosed().subscribe(() => {
       this.loadUserData(); // Recargar datos después de cerrar el modal
     });
+  }
+
+  /**
+   * Verificar si el usuario puede solicitar un nuevo medidor
+   * Permite múltiples solicitudes, pero limita las pendientes simultáneas
+   */
+  canRequestNewMeter(): boolean {
+    const user = this.currentUser();
+    if (!user) return false;
+    return this.meterService.shouldShowMeterRegistration(user.id);
+  }
+
+  /**
+   * Contar solicitudes pendientes del usuario
+   */
+  getPendingRequestsCount(): number {
+    return this.userRequests().filter(r => r.estado === 'pendiente').length;
   }
 
   // Método para navegar al dashboard

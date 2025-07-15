@@ -49,6 +49,14 @@ export class MeterManagementService {
   }
 
   /**
+   * Método público para recargar las solicitudes desde localStorage
+   * Útil para refrescar la vista después de cambios
+   */
+  refreshMeterRequests(): void {
+    this.loadMeterRequests();
+  }
+
+  /**
    * Guardar solicitudes en localStorage
    */
   private saveMeterRequests(): void {
@@ -99,23 +107,28 @@ export class MeterManagementService {
   }
 
   /**
-   * Verificar si un usuario necesita registrar un medidor
+   * Verificar si un usuario puede solicitar un nuevo medidor
+   * Permite solicitar medidores adicionales, pero limita las solicitudes pendientes simultáneas
    */
   shouldShowMeterRegistration(userId: string | number): boolean {
-    return !this.hasUserActiveMeters(userId) && !this.hasUserPendingRequests(userId);
+    const pendingRequests = this.getUserMeterRequests(userId).filter(r => r.estado === 'pendiente');
+    const maxPendingRequests = 3; // Máximo 3 solicitudes pendientes al mismo tiempo
+    
+    return pendingRequests.length < maxPendingRequests;
   }
 
   /**
    * Aprobar solicitud de medidor
    */
   approveMeterRequest(requestId: string, approvedBy: string, meterData: Partial<WaterMeter>): void {
-    const requests = this.meterRequests();
+    console.log('🔄 Aprobando solicitud:', requestId);
+    const requests = [...this.meterRequests()]; // Crear nueva copia del array
     const requestIndex = requests.findIndex(r => r.id === requestId);
     
     if (requestIndex !== -1) {
       const request = requests[requestIndex];
       
-      // Actualizar solicitud
+      // Actualizar solicitud creando un nuevo objeto
       requests[requestIndex] = {
         ...request,
         estado: 'aprobada',
@@ -144,10 +157,12 @@ export class MeterManagementService {
       const meters: WaterMeter[] = metersData ? JSON.parse(metersData) : [];
       meters.push(newMeter);
       localStorage.setItem('apr_meters', JSON.stringify(meters));
+      console.log('✅ Medidor creado:', newMeter);
 
-      // Actualizar solicitudes
+      // Actualizar solicitudes con la nueva copia del array
       this.meterRequests.set(requests);
       this.saveMeterRequests();
+      console.log('✅ Solicitud aprobada y signal actualizado');
     }
   }
 
@@ -155,10 +170,12 @@ export class MeterManagementService {
    * Rechazar solicitud de medidor
    */
   rejectMeterRequest(requestId: string, rejectedBy: string, reason: string): void {
-    const requests = this.meterRequests();
+    console.log('🔄 Rechazando solicitud:', requestId);
+    const requests = [...this.meterRequests()]; // Crear nueva copia del array
     const requestIndex = requests.findIndex(r => r.id === requestId);
     
     if (requestIndex !== -1) {
+      // Actualizar solicitud creando un nuevo objeto
       requests[requestIndex] = {
         ...requests[requestIndex],
         estado: 'rechazada',
@@ -167,8 +184,10 @@ export class MeterManagementService {
         motivoRechazo: reason
       };
       
+      // Actualizar solicitudes con la nueva copia del array
       this.meterRequests.set(requests);
       this.saveMeterRequests();
+      console.log('✅ Solicitud rechazada y signal actualizado');
     }
   }
 
