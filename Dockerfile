@@ -32,6 +32,6 @@ RUN chown -R angular:nodejs /usr/share/nginx/html && \
 # Cambiar a usuario no root
 USER angular
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
