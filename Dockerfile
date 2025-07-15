@@ -2,7 +2,7 @@ FROM node:20.18-alpine as build
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --only=production && npm cache clean --force
+RUN npm ci && npm cache clean --force
 
 COPY . .
 RUN npx ng build
