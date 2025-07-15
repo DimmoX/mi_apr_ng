@@ -4,10 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 
 /**
- * Servicio para inicializar datos de prueba del sistema APR
+ * Servicio para inicializar datos del sistema APR
  *
  * Este servicio carga usuarios, lecturas y medidores desde URLs externas 
- * y los almacena en localStorage para persistencia durante el desarrollo.
+ * y los almacena en localStorage para persistencia.
  */
 @Injectable({
   providedIn: 'root'
