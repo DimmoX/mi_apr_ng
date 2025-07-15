@@ -5,7 +5,7 @@ COPY package*.json ./
 RUN npm ci --only=production && npm cache clean --force
 
 COPY . .
-RUN npm build
+RUN npm run build
 
 # Imagen ligera de nginx para servir la aplicación
 FROM nginx:alpine
