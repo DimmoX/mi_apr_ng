@@ -62,7 +62,6 @@ Un sistema web moderno desarrollado en Angular 17 para la gestión de usuarios y
 - ✅ **Lecturas**: Ver todas las lecturas, registrar lecturas para clientes
 - ✅ **Dashboard**: Vista operativa con métricas del día
 - ✅ **Reportes**: Generar reportes operativos y de gestión
-- ✅ **Mantenimiento**: Coordinar tareas de mantenimiento
 - ❌ **Gestión de Usuarios**: No puede crear/eliminar usuarios
 
 ### **🟢 Técnico (tecnico)**
@@ -70,7 +69,6 @@ Un sistema web moderno desarrollado en Angular 17 para la gestión de usuarios y
 - ✅ **Gestión de Medidores**: Aprobar/rechazar solicitudes, instalar medidores
 - ✅ **Lecturas**: Ver todas las lecturas, registrar lecturas técnicas
 - ✅ **Dashboard**: Vista técnica con alertas de mantenimiento
-- ✅ **Mantenimiento**: Gestionar equipos y reparaciones
 - ✅ **Reportes Técnicos**: Generar reportes de estado de equipos
 - ❌ **Gestión de Usuarios**: No puede gestionar usuarios
 
@@ -212,34 +210,15 @@ ng serve
 npm start
 
 # Ejecutar tests unitarios
+ng test
+# o alternativamente:
 npm test
-
-# Ejecutar tests una sola vez (para CI/CD)
-npm test -- --no-watch --no-progress --browsers=ChromeHeadless
-
-# Ejecutar tests con cobertura
-ng test --code-coverage
 
 # Construir para producción
 ng build
 
-# Construir para desarrollo
-ng build --configuration development
-
 # Generar documentación con Compodoc
-npm run compodoc
-
-# Generar documentación y servir en vivo
-npm run compodoc:serve
-
-# Generar documentación con cobertura
-npm run compodoc:coverage
-
-# Lint del código
-ng lint
-
-# Formatear código
-npm run format
+npx compodoc
 ```
 
 ### **🌐 URLs de Acceso**
