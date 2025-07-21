@@ -95,6 +95,7 @@ describe('RegisterComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // Verifica que el formulario se inicializa correctamente
   it('debería crear el formulario con todos los campos requeridos', () => {
     expect(component.registerForm.get('name')).toBeTruthy();
     expect(component.registerForm.get('lastname')).toBeTruthy();
@@ -105,10 +106,12 @@ describe('RegisterComponent', () => {
     expect(component.registerForm.get('confirmPassword')).toBeTruthy();
   });
 
+  // Verifica que el formulario es inválido si los campos están vacíos
   it('debería ser inválido cuando los campos están vacíos', () => {
     expect(component.registerForm.valid).toBeFalsy();
   });
 
+  // Verifica que el formulario es válido con datos correctos
   it('debería ser válido con datos correctos', () => {
     component.registerForm.patchValue({
       name: 'Juan',
@@ -122,6 +125,7 @@ describe('RegisterComponent', () => {
     expect(component.registerForm.valid).toBeTruthy();
   });
 
+  // Verifica que el método onSubmit maneja correctamente el registro
   it('debería registrar usuario exitosamente y navegar al dashboard', () => {
     // Se configura formulario válido
     component.registerForm.patchValue({
@@ -148,6 +152,7 @@ describe('RegisterComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 
+  // Verifica que el método onSubmit maneja errores de validación
   it('debería manejar error de registro y mostrar mensaje', () => {
     // Se configura formulario válido
     component.registerForm.patchValue({
