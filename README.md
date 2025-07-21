@@ -433,19 +433,103 @@ describe('LoginComponent', () => {
 })
 ```
 
+### 🦶 Tests de FooterComponent (3 tests)
+
+**Ubicación**: `src/app/components/footer/footer.component.spec.ts`
+
+**Cobertura de funcionalidades:**
+- ✅ **Creación del componente**: Verificación de inicialización correcta del footer
+- ✅ **Funcionalidad de email**: Validación de generación correcta de enlaces mailto
+- ✅ **Funcionalidad telefónica**: Validación de generación correcta de enlaces tel
+
+**Tests específicos:**
+```typescript
+describe('FooterComponent', () => {
+  // Test de creación básica del componente
+  // Verifica que el componente se instancie correctamente sin errores
+  it('debería crear el componente')
+  
+  // Test de funcionalidad de email
+  // Verifica que el método openEmail() genere la URL correcta para mailto
+  it('debería abrir cliente de email con dirección correcta')
+  
+  // Test de funcionalidad de teléfono
+  // Verifica que el método openPhone() genere la URL correcta para tel
+  it('debería abrir marcador telefónico con número correcto')
+})
+```
+
+### 📝 Tests de RegisterComponent (6 tests)
+
+**Ubicación**: `src/app/features/auth/register/register.component.spec.ts`
+
+**Cobertura de funcionalidades:**
+- ✅ **Creación del componente**: Verificación de inicialización del componente de registro
+- ✅ **Validación del formulario**: Tests para validación de campos requeridos y formato
+- ✅ **Registro exitoso**: Flujo completo de registro con navegación al dashboard
+- ✅ **Manejo de errores**: Gestión de errores durante el proceso de registro
+- ✅ **Validaciones avanzadas**: Verificación de formato de teléfono y contraseñas
+
+**Tests específicos:**
+```typescript
+describe('RegisterComponent', () => {
+  // Creación y configuración
+  it('debería crear el componente')
+  it('debería crear el formulario con todos los campos requeridos')
+  
+  // Validaciones
+  it('debería ser inválido cuando los campos están vacíos')
+  it('debería ser válido con datos correctos')
+  
+  // Flujos principales
+  it('debería registrar usuario exitosamente y navegar al dashboard')
+  it('debería manejar error de registro y mostrar mensaje')
+})
+```
+
+### 👤 Tests de ProfileComponent (5 tests)
+
+**Ubicación**: `src/app/features/profile/profile.component.spec.ts`
+
+**Cobertura de funcionalidades:**
+- ✅ **Creación del componente**: Verificación de inicialización del componente de perfil
+- ✅ **Inicialización del formulario**: Validación de que el formulario se llene con datos del usuario
+- ✅ **Validación de campos**: Tests para campos requeridos y validaciones del formulario
+- ✅ **Actualización de perfil**: Verificación del proceso de actualización de datos
+- ✅ **Manejo de estados**: Gestión de estados de carga y validación
+
+**Tests específicos:**
+```typescript
+describe('ProfileComponent', () => {
+  // Creación y inicialización
+  it('debería crear el componente correctamente')
+  it('debería inicializar el formulario con los datos del usuario actual')
+  
+  // Validaciones
+  it('debería validar correctamente los campos requeridos del formulario')
+  it('debería validar correctamente cuando el formulario tiene datos válidos')
+  
+  // Funcionalidad principal
+  it('debería ejecutar onSubmit correctamente cuando el formulario es válido')
+})
+```
+
 ### 🚀 Ejecutar Tests
 
-#### **Ejecución Completa (35 tests)**
+#### **Ejecución Completa (49 tests)**
 ```bash
 # Tests en modo watch (desarrollo)
-npm test
+npm run test
 ```
 
 #### **Resultados Esperados**
 ```
-✅ TOTAL: 35 SUCCESS
+✅ TOTAL: 49 SUCCESS
 ├── NavbarComponent: 15 tests ✅
 ├── LoginComponent: 20 tests ✅
+├── FooterComponent: 3 tests ✅
+├── RegisterComponent: 6 tests ✅
+├── ProfileComponent: 5 tests ✅
 └── Otros componentes: En desarrollo 🚧
 ```
 
@@ -461,14 +545,44 @@ npm test
 - `ValidationService`: Validaciones de formularios
 - `NotificationService`: Sistema de notificaciones
 - `BreakpointObserver`: Detección responsive
+- `MatSnackBar`: Sistema de notificaciones Material
 
 ### 📊 Métricas de Calidad
 
-- **✅ 35/35 tests pasando** (100% success rate)
+- **✅ 49/49 tests pasando** (100% success rate)
 - **🔧 Mocks configurados** para todos los servicios
 - **📱 Tests responsive** para diferentes dispositivos
 - **🛡️ Tests de seguridad** para autenticación
 - **🔄 Tests de navegación** para flujos de usuario
+- **📋 Tests de formularios** para validaciones completas
+- **🎯 Tests de componentes** para funcionalidades específicas
+
+### 🧪 Tipos de Tests Implementados
+
+#### **🔍 Tests de Componente**
+- **Creación e Inicialización**: Verificar que los componentes se instancien correctamente
+- **Propiedades y Estado**: Validar el estado inicial y las propiedades del componente
+- **Métodos Públicos**: Probar todos los métodos expuestos del componente
+
+#### **📋 Tests de Formulario**
+- **Validaciones**: Verificar todas las reglas de validación implementadas
+- **Estados**: Probar formularios válidos e inválidos
+- **Interacción**: Validar el comportamiento ante diferentes entradas de usuario
+
+#### **🔄 Tests de Navegación**
+- **Redirección**: Verificar que la navegación funcione correctamente
+- **Rutas Protegidas**: Validar guards de autenticación
+- **Estados de Usuario**: Probar navegación según roles y autenticación
+
+#### **🎛️ Tests de Servicio**
+- **Métodos de Servicio**: Verificar llamadas correctas a servicios
+- **Mocks**: Simular respuestas de servicios externos
+- **Estados de Error**: Manejar errores y excepciones
+
+#### **📱 Tests Responsive**
+- **Dispositivos Móviles**: Validar comportamiento en pantallas pequeñas
+- **Desktop**: Verificar funcionalidad en pantallas grandes
+- **Breakpoints**: Probar diferentes puntos de quiebre CSS
 
 ---
 
