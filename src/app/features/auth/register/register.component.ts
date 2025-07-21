@@ -79,7 +79,7 @@ export class RegisterComponent implements OnInit {
       role: ['cliente', [Validators.required]], // Rol por defecto
       password: ['', [Validators.required, this.passwordValidator.bind(this)]],
       confirmPassword: ['', [Validators.required]]
-    }, { validators: this.passwordMatchValidator });
+    }, { validators: this.passwordMatchValidator.bind(this) });
   }
   private setupPasswordValidation(): void {
     const passwordControl = this.registerForm.get('password');

@@ -39,7 +39,7 @@ export class FooterComponent {
    * @param email Dirección de email
    */
   openEmail(email: string): void {
-    window.location.href = `mailto:${email}`;
+    this.navigateToLocation(`mailto:${email}`);
   }
 
   /**
@@ -47,6 +47,14 @@ export class FooterComponent {
    * @param phone Número de teléfono
    */
   openPhone(phone: string): void {
-    window.location.href = `tel:${phone}`;
+    this.navigateToLocation(`tel:${phone}`);
+  }
+
+  /**
+   * Método helper para navegación
+   * @param url URL de destino
+   */
+  private navigateToLocation(url: string): void {
+    window.location.assign(url);
   }
 }
