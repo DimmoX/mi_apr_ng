@@ -14,8 +14,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { of, throwError } from 'rxjs';
-import { User, UserRole } from '../../../core/models/user.model';
+import { of } from 'rxjs';
+
+/**
+ * Se desarrolla test para componente de register.
+ */
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -60,29 +63,29 @@ describe('RegisterComponent', () => {
     mockRouter = TestBed.inject(Router) as jasmine.SpyObj<Router>;
     mockSnackBar = TestBed.inject(MatSnackBar) as jasmine.SpyObj<MatSnackBar>;
 
-    // Configurar mock de getPasswordStrength
+    // Se configura mock de getPasswordStrength
     mockValidationService.getPasswordStrength.and.returnValue({
       level: 1,
       text: 'Débil',
       color: '#ff5722'
     });
 
-    // Configurar mock de validatePhoneNumber
+    // Se configura mock de validatePhoneNumber
     mockValidationService.validatePhoneNumber.and.returnValue({
       isValid: true
     });
 
-    // Configurar mock de validatePassword
+    // Se configura mock de validatePassword
     mockValidationService.validatePassword.and.returnValue({
       isValid: true
     });
 
-    // Configurar mock de validatePasswordConfirmation
+    // Se configura mock de validatePasswordConfirmation
     mockValidationService.validatePasswordConfirmation.and.returnValue({
       isValid: true
     });
 
-    // Configurar mock de formatPhoneNumber
+    // Se configura mock de formatPhoneNumber
     mockValidationService.formatPhoneNumber.and.returnValue('+56912345678');
 
     fixture.detectChanges();
@@ -120,7 +123,7 @@ describe('RegisterComponent', () => {
   });
 
   it('debería registrar usuario exitosamente y navegar al dashboard', () => {
-    // Configurar formulario válido
+    // Se configura formulario válido
     component.registerForm.patchValue({
       name: 'Juan',
       lastname: 'Pérez',
@@ -131,22 +134,22 @@ describe('RegisterComponent', () => {
       confirmPassword: 'Password123'
     });
     
-    // Verificar que el formulario es válido
+    // Se verifica que el formulario es válido
     expect(component.registerForm.valid).toBeTruthy();
     
     // Mock del servicio para simular registro exitoso
     mockAuthService.register.and.returnValue(of({ success: true }));
     
-    // Ejecutar registro
+    // Se Ejecuta registro
     component.onSubmit();
     
-    // Verificar que se llamó el servicio de registro
+    // Se verifica que se llamó el servicio de registro
     expect(mockAuthService.register).toHaveBeenCalled();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 
   it('debería manejar error de registro y mostrar mensaje', () => {
-    // Configurar formulario válido
+    // Se configura formulario válido
     component.registerForm.patchValue({
       name: 'Juan',
       lastname: 'Pérez',
@@ -157,7 +160,7 @@ describe('RegisterComponent', () => {
       confirmPassword: 'Password123'
     });
     
-    // Verificar que el formulario es válido
+    // Se verifica que el formulario es válido
     expect(component.registerForm.valid).toBeTruthy();
 
     // Mock del servicio para simular error de registro
@@ -166,12 +169,12 @@ describe('RegisterComponent', () => {
       error: 'Email ya registrado' 
     }));
 
-    // Ejecutar registro
+    // Se ejecuta registro
     component.onSubmit();
     
     // Verificar que se llamó el servicio
     expect(mockAuthService.register).toHaveBeenCalled();
-    // Verificar que no navegó (porque hubo error)
+    // Se verifica que no navegó (Caso error)
     expect(mockRouter.navigate).not.toHaveBeenCalled();
   });
 });
